@@ -1,0 +1,40 @@
+{
+  "name": "claude-ai-automation",
+  "version": "1.0.0",
+  "description": "AI-powered development automation system with multi-agent architecture for Claude",
+  "main": "index.js",
+  "bin": {
+    "claude-ai-automation": "./bin/cli.js",
+    "caia": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "claude",
+    "ai",
+    "automation",
+    "development",
+    "agents",
+    "code-quality",
+    "planning",
+    "testing",
+    "security",
+    "debugging"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "files": [
+    "bin/",
+    "template/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

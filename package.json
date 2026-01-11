@@ -1,6 +1,6 @@
 {
   "name": "claude-ai-automation",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "AI-powered development automation system with multi-agent architecture for Claude",
   "main": "index.js",
   "bin": {

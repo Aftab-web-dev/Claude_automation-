@@ -92,7 +92,7 @@ function init() {
     log('   "Debug"              → Runs debugger agent', 'reset');
     log('   "Refactor"           → Runs refactor agent\n', 'reset');
 
-    log('📚 Documentation: https://github.com/YOUR_USERNAME/claude-ai-automation\n', 'cyan');
+    log('📚 Documentation: https://github.com/Aftab-web-dev/claude-ai-automation\n', 'cyan');
 
   } catch (error) {
     log(`\n❌ Error: ${error.message}`, 'red');

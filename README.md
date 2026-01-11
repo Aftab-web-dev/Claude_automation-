@@ -31,7 +31,7 @@ Click **"Use this template"** button on GitHub to create a new repository.
 ### Option 3: Manual Clone
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/claude-ai-automation.git
+git clone https://github.com/Aftab-web-dev/claude-ai-automation.git
 cp -r claude-ai-automation/template/* your-project/
 ```
 

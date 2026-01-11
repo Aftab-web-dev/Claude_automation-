@@ -22,11 +22,15 @@
     "security",
     "debugging"
   ],
-  "author": "",
+  "author": "aftabshaikh4643",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/Aftab-web-dev/claude-ai-automation.git"
+  },
+  "homepage": "https://github.com/Aftab-web-dev/claude-ai-automation#readme",
+  "bugs": {
+    "url": "https://github.com/Aftab-web-dev/claude-ai-automation/issues"
   },
   "files": [
     "bin/",

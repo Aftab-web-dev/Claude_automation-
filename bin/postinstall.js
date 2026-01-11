@@ -2,7 +2,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const { spawn } = require('child_process');
 
 const COLORS = {
   reset: '\x1b[0m',
@@ -56,32 +55,14 @@ function findProjectRoot() {
   return process.cwd();
 }
 
-function launchClaude(projectDir) {
-  log('\n🚀 Launching Claude Code...', 'cyan');
+function showNextSteps() {
+  log('\n╔══════════════════════════════════════════════════════════╗', 'cyan');
+  log('║                      NEXT STEPS                          ║', 'cyan');
+  log('╚══════════════════════════════════════════════════════════╝\n', 'cyan');
 
-  const isWindows = process.platform === 'win32';
-  const claudeCmd = isWindows ? 'claude.cmd' : 'claude';
-
-  // Initial prompt to make Claude read CLAUDE.md
-  const initialPrompt = 'Read CLAUDE.md and follow the startup instructions. Then greet me and ask what I want to build.';
-
-  // Spawn claude in the project directory with initial prompt
-  const claude = spawn(claudeCmd, [initialPrompt], {
-    cwd: projectDir,
-    stdio: 'inherit',
-    shell: true,
-    detached: false
-  });
-
-  claude.on('error', (err) => {
-    if (err.code === 'ENOENT') {
-      log('\n⚠️  Claude Code is not installed or not in PATH.', 'yellow');
-      log('   Install it with: npm install -g @anthropic-ai/claude-code', 'yellow');
-      log('   Then run: claude', 'yellow');
-    } else {
-      log(`\n❌ Failed to launch Claude: ${err.message}`, 'red');
-    }
-  });
+  log('  Open Claude and write:', 'bright');
+  log('  "Read the CLAUDE.md file and follow the instructions from there"', 'green');
+  log('', 'reset');
 }
 
 function postinstall() {
@@ -139,8 +120,8 @@ function postinstall() {
     }
   }
 
-  // Launch Claude Code
-  launchClaude(projectRoot);
+  // Show next steps
+  showNextSteps();
 }
 
 postinstall();

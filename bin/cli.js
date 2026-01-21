@@ -64,14 +64,11 @@ function init() {
     log('✅ Created files:', 'green');
     log('   └── CLAUDE.md (main controller)', 'reset');
     log('   └── .aiautomations/', 'reset');
-    log('       ├── prompts/ (11 agent prompts)', 'reset');
-    log('       ├── standards/ (5 standard docs)', 'reset');
-    log('       ├── checklists/ (3 checklists)', 'reset');
-    log('       └── templates/ (4 planning templates)', 'reset');
-    log('   └── .session/', 'reset');
-    log('       ├── state.md', 'reset');
-    log('       ├── log.md', 'reset');
-    log('       └── next.md', 'reset');
+    log('       ├── prompts/ (34 agents: 11 dev + 23 life)', 'reset');
+    log('       ├── protocols/ (collaboration, memory, quality)', 'reset');
+    log('       ├── standards/ (8 standard docs)', 'reset');
+    log('       ├── checklists/ (5 checklists)', 'reset');
+    log('       └── templates/ (6 planning templates)', 'reset');
 
     log('\n╔══════════════════════════════════════════════════════════╗', 'green');
     log('║     ✅ Setup Complete!                                   ║', 'green');
@@ -83,7 +80,7 @@ function init() {
     log('   3. Tell Claude what you want to build', 'reset');
     log('   4. The system handles planning, execution, testing, etc.\n', 'reset');
 
-    log('🚀 Available commands:', 'bright');
+    log('🚀 Development Commands:', 'bright');
     log('   "Build [something]"  → Plans and builds your project', 'reset');
     log('   "Continue"           → Resumes from last session', 'reset');
     log('   "Test"               → Runs testing agent', 'reset');
@@ -91,6 +88,15 @@ function init() {
     log('   "Security"           → Runs security audit agent', 'reset');
     log('   "Debug"              → Runs debugger agent', 'reset');
     log('   "Refactor"           → Runs refactor agent\n', 'reset');
+
+    log('🌟 Life Assistant Commands:', 'bright');
+    log('   "Interview prep"     → Mock interviews & coaching', 'reset');
+    log('   "Financial advice"   → Investment & budget education', 'reset');
+    log('   "Health question"    → Medical guidance (not diagnosis)', 'reset');
+    log('   "Career help"        → Resume, job search, growth', 'reset');
+    log('   "Stress management"  → Coping techniques & support', 'reset');
+    log('   "Teach me [topic]"   → Learning & education', 'reset');
+    log('   "Plan a trip"        → Travel itineraries\n', 'reset');
 
     log('📚 Documentation: https://github.com/Aftab-web-dev/claude-ai-automation\n', 'cyan');
 

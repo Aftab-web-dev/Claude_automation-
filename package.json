@@ -1,22 +1,29 @@
 {
   "name": "claude-ai-automation",
-  "version": "2.0.0",
-  "description": "Universal AI assistant with 34 agents for software development AND life/personal assistance - interviews, finance, health, career, resume, negotiation, parenting & more",
+  "version": "3.0.0",
+  "description": "Universal AI assistant framework with 34+ agents for software development AND life/personal assistance - multi-LLM support, plugin system, workflow composer, analytics dashboard",
   "main": "index.js",
   "bin": {
     "claude-ai-automation": "./bin/cli.js",
     "caia": "./bin/cli.js"
   },
   "scripts": {
-    "test": "echo \"No tests yet\" && exit 0",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "doctor": "node bin/cli.js doctor",
     "postinstall": "node bin/postinstall.js"
   },
   "keywords": [
     "claude",
     "ai",
     "automation",
-    "development",
+    "multi-agent",
     "agents",
+    "framework",
+    "development",
     "code-quality",
     "planning",
     "testing",
@@ -29,7 +36,6 @@
     "career",
     "wellness",
     "productivity",
-    "multi-agent",
     "personal-assistant",
     "resume",
     "negotiation",
@@ -39,7 +45,15 @@
     "email",
     "cursor",
     "claude-code",
-    "anthropic"
+    "anthropic",
+    "gpt",
+    "gemini",
+    "copilot",
+    "multi-llm",
+    "workflow",
+    "plugin-system",
+    "analytics",
+    "telemetry"
   ],
   "author": "aftabshaikh4643",
   "license": "MIT",
@@ -53,11 +67,21 @@
   },
   "files": [
     "bin/",
+    "lib/",
     "template/",
+    "docs/",
     "README.md",
     "LICENSE"
   ],
   "engines": {
     "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^3.2.4",
+    "eslint": "^9.39.4",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "@rollup/rollup-win32-x64-msvc": "^4.60.0"
   }
 }

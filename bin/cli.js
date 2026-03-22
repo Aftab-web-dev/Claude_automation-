@@ -1,136 +1,144 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-
-const COLORS = {
-  reset: '\x1b[0m',
-  bright: '\x1b[1m',
-  green: '\x1b[32m',
-  yellow: '\x1b[33m',
-  blue: '\x1b[34m',
-  cyan: '\x1b[36m',
-  red: '\x1b[31m'
+// Parse flags
+const args = process.argv.slice(2);
+const flags = {
+  force: args.includes('--force'),
+  dryRun: args.includes('--dry-run'),
+  verbose: args.includes('--verbose'),
+  version: args.includes('--version') || args.includes('-v'),
 };
 
-function log(message, color = 'reset') {
-  console.log(`${COLORS[color]}${message}${COLORS.reset}`);
+// Remove flags from args
+const commands = args.filter(a => !a.startsWith('--') && !a.startsWith('-v'));
+const command = commands[0];
+const subArgs = commands.slice(1);
+
+// Version check
+if (flags.version) {
+  const pkg = require('../package.json');
+  console.log(`claude-ai-automation v${pkg.version}`);
+  process.exit(0);
 }
 
-function copyDir(src, dest) {
-  if (!fs.existsSync(dest)) {
-    fs.mkdirSync(dest, { recursive: true });
-  }
-
-  const entries = fs.readdirSync(src, { withFileTypes: true });
-
-  for (const entry of entries) {
-    const srcPath = path.join(src, entry.name);
-    const destPath = path.join(dest, entry.name);
-
-    if (entry.isDirectory()) {
-      copyDir(srcPath, destPath);
-    } else {
-      fs.copyFileSync(srcPath, destPath);
-    }
-  }
+// Set up verbose logging
+if (flags.verbose) {
+  const { getLogger } = require('../lib/logger');
+  getLogger({ verbose: true });
 }
 
-function init() {
-  const targetDir = process.cwd();
-  const templateDir = path.join(__dirname, '..', 'template');
-
-  log('\n╔══════════════════════════════════════════════════════════╗', 'cyan');
-  log('║     Claude AI Automation System - Setup                  ║', 'cyan');
-  log('╚══════════════════════════════════════════════════════════╝\n', 'cyan');
-
-  // Check if CLAUDE.md already exists
-  if (fs.existsSync(path.join(targetDir, 'CLAUDE.md'))) {
-    log('⚠️  CLAUDE.md already exists in this directory.', 'yellow');
-    log('   Use --force to overwrite existing files.\n', 'yellow');
-
-    if (!process.argv.includes('--force')) {
-      process.exit(1);
-    }
-    log('   --force flag detected. Overwriting...\n', 'yellow');
-  }
-
-  log('📁 Creating automation system files...\n', 'blue');
-
-  try {
-    // Copy template directory
-    copyDir(templateDir, targetDir);
-
-    log('✅ Created files:', 'green');
-    log('   └── CLAUDE.md (main controller)', 'reset');
-    log('   └── .aiautomations/', 'reset');
-    log('       ├── prompts/ (34 agents: 11 dev + 23 life)', 'reset');
-    log('       ├── protocols/ (collaboration, memory, quality)', 'reset');
-    log('       ├── standards/ (8 standard docs)', 'reset');
-    log('       ├── checklists/ (5 checklists)', 'reset');
-    log('       └── templates/ (6 planning templates)', 'reset');
-
-    log('\n╔══════════════════════════════════════════════════════════╗', 'green');
-    log('║     ✅ Setup Complete!                                   ║', 'green');
-    log('╚══════════════════════════════════════════════════════════╝', 'green');
-
-    log('\n📖 How to use:', 'bright');
-    log('   1. Open this project in Claude Code / Cursor / VS Code', 'reset');
-    log('   2. Claude will automatically read CLAUDE.md', 'reset');
-    log('   3. Tell Claude what you want to build', 'reset');
-    log('   4. The system handles planning, execution, testing, etc.\n', 'reset');
-
-    log('🚀 Development Commands:', 'bright');
-    log('   "Build [something]"  → Plans and builds your project', 'reset');
-    log('   "Continue"           → Resumes from last session', 'reset');
-    log('   "Test"               → Runs testing agent', 'reset');
-    log('   "Review"             → Runs code review agent', 'reset');
-    log('   "Security"           → Runs security audit agent', 'reset');
-    log('   "Debug"              → Runs debugger agent', 'reset');
-    log('   "Refactor"           → Runs refactor agent\n', 'reset');
-
-    log('🌟 Life Assistant Commands:', 'bright');
-    log('   "Interview prep"     → Mock interviews & coaching', 'reset');
-    log('   "Financial advice"   → Investment & budget education', 'reset');
-    log('   "Health question"    → Medical guidance (not diagnosis)', 'reset');
-    log('   "Career help"        → Resume, job search, growth', 'reset');
-    log('   "Stress management"  → Coping techniques & support', 'reset');
-    log('   "Teach me [topic]"   → Learning & education', 'reset');
-    log('   "Plan a trip"        → Travel itineraries\n', 'reset');
-
-    log('📚 Documentation: https://github.com/Aftab-web-dev/claude-ai-automation\n', 'cyan');
-
-  } catch (error) {
-    log(`\n❌ Error: ${error.message}`, 'red');
-    process.exit(1);
-  }
-}
+// Load color utilities
+const { log, box } = require('../lib/colors');
 
 function showHelp() {
-  log('\n╔══════════════════════════════════════════════════════════╗', 'cyan');
-  log('║     Claude AI Automation System                          ║', 'cyan');
-  log('╚══════════════════════════════════════════════════════════╝\n', 'cyan');
+  const pkg = require('../package.json');
+  box(`Claude AI Automation System v${pkg.version}`);
 
   log('Usage:', 'bright');
-  log('  npx claude-ai-automation init    Initialize in current directory', 'reset');
-  log('  npx claude-ai-automation help    Show this help message', 'reset');
-  log('  npx caia init                    Short alias\n', 'reset');
+  log('  caia <command> [options]\n');
+
+  log('Setup Commands:', 'bright');
+  log('  init              Initialize in current directory');
+  log('  upgrade           Update agents and system files');
+  log('  doctor            Diagnose setup issues\n');
+
+  log('Agent Commands:', 'bright');
+  log('  list [dev|life]   List all installed agents');
+  log('  add create <name> Create a custom agent');
+  log('  add remove <name> Remove an agent\n');
+
+  log('Workflow Commands:', 'bright');
+  log('  workflow list     List all workflows');
+  log('  workflow create   Create a new workflow');
+  log('  workflow show     Show workflow details');
+  log('  workflow delete   Delete a workflow\n');
+
+  log('Configuration:', 'bright');
+  log('  config            Show/edit configuration');
+  log('  config set <k> <v>  Set a config value');
+  log('  llm list          List supported LLMs');
+  log('  llm use <name>    Switch LLM platform');
+  log('  llm generate      Generate configs for all LLMs\n');
+
+  log('Analytics:', 'bright');
+  log('  status            Show project status');
+  log('  telemetry         Manage usage analytics');
+  log('  analytics         View analytics dashboard\n');
 
   log('Options:', 'bright');
-  log('  --force    Overwrite existing files\n', 'reset');
+  log('  --force           Overwrite existing files');
+  log('  --dry-run         Preview changes without applying');
+  log('  --verbose         Enable detailed logging');
+  log('  --version, -v     Show version\n');
 
   log('Examples:', 'bright');
-  log('  cd my-project', 'reset');
-  log('  npx claude-ai-automation init\n', 'reset');
+  log('  npx caia init');
+  log('  npx caia list dev');
+  log('  npx caia add create my-custom-agent');
+  log('  npx caia workflow create blog-pipeline');
+  log('  npx caia llm use gpt');
+  log('  npx caia status\n');
+
+  log('Documentation: https://github.com/Aftab-web-dev/claude-ai-automation\n', 'cyan');
 }
 
-// Main
-const command = process.argv[2];
-
+// Route commands
 switch (command) {
-  case 'init':
-    init();
+  case 'init': {
+    const initCommand = require('../lib/commands/init');
+    initCommand({ force: flags.force, dryRun: flags.dryRun });
     break;
+  }
+  case 'status': {
+    const statusCommand = require('../lib/commands/status');
+    statusCommand();
+    break;
+  }
+  case 'doctor': {
+    const doctorCommand = require('../lib/commands/doctor');
+    doctorCommand();
+    break;
+  }
+  case 'list': {
+    const listCommand = require('../lib/commands/list');
+    listCommand({ category: subArgs[0] });
+    break;
+  }
+  case 'upgrade': {
+    const upgradeCommand = require('../lib/commands/upgrade');
+    upgradeCommand({ dryRun: flags.dryRun });
+    break;
+  }
+  case 'config': {
+    const configCommand = require('../lib/commands/config');
+    configCommand(subArgs);
+    break;
+  }
+  case 'add': {
+    const addCommand = require('../lib/commands/add');
+    addCommand(subArgs);
+    break;
+  }
+  case 'workflow': {
+    const workflowCommand = require('../lib/commands/workflow');
+    workflowCommand(subArgs);
+    break;
+  }
+  case 'llm': {
+    const llmCommand = require('../lib/commands/llm');
+    llmCommand(subArgs);
+    break;
+  }
+  case 'telemetry': {
+    const telemetryCommand = require('../lib/commands/telemetry');
+    telemetryCommand(subArgs);
+    break;
+  }
+  case 'analytics': {
+    const analyticsCommand = require('../lib/commands/analytics');
+    analyticsCommand();
+    break;
+  }
   case 'help':
   case '--help':
   case '-h':
@@ -141,7 +149,7 @@ switch (command) {
       showHelp();
     } else {
       log(`\n❌ Unknown command: ${command}`, 'red');
-      log('   Run "npx claude-ai-automation help" for usage.\n', 'reset');
+      log('   Run "caia help" for usage.\n', 'reset');
       process.exit(1);
     }
 }

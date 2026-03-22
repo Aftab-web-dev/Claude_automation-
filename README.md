@@ -1,40 +1,81 @@
 # Claude AI Automation System
 
-A powerful multi-agent automation system for AI-assisted **software development** AND **life/personal assistance** with Claude.
+A powerful multi-agent AI framework for **software development** AND **life/personal assistance** with multi-LLM support, plugin system, workflow composer, and analytics.
 
 [![npm version](https://img.shields.io/npm/v/claude-ai-automation.svg)](https://www.npmjs.com/package/claude-ai-automation)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Tests](https://img.shields.io/badge/tests-vitest-green.svg)](https://vitest.dev/)
 
 ## What is this?
 
-This is a **universal AI assistant framework** that turns Claude into a comprehensive multi-agent system with:
+A **universal AI assistant framework** that turns your AI into a comprehensive multi-agent system:
 
-- **34 Specialized Agents** - 11 for development + 23 for life/personal assistance
-- **Automatic Agent Selection** - Claude decides which agent to activate based on your request
-- **Session Persistence** - Never lose progress, even across conversations
-- **Quality Gates** - Built-in checklists ensure high-quality, secure code
-- **Standards Enforcement** - Consistent coding standards, API design, database design
-- **Life Assistance** - Expert guidance for health, finance, career, relationships, and more
-- **Safety First** - Crisis escalation protocols, mandatory disclaimers for sensitive topics
+- **34+ Specialized Agents** — 11 for development + 23 for life/personal assistance
+- **Multi-LLM Support** — Works with Claude, GPT, Gemini, and GitHub Copilot
+- **Plugin System** — Create, install, and manage custom agents
+- **Workflow Composer** — Define multi-agent pipelines with YAML
+- **Analytics Dashboard** — Track agent usage and productivity (opt-in, local only)
+- **Session Persistence** — Never lose progress, even across conversations
+- **Quality Gates** — Built-in checklists, standards, and security reviews
+- **Safety Protocols** — Crisis escalation, mandatory disclaimers for sensitive topics
+- **Zero Dependencies** — Pure Node.js, installs in seconds
 
 ## Quick Start
 
-### Option 1: NPX (Recommended)
-
 ```bash
-cd your-project
+# Install and initialize
 npx claude-ai-automation init
+
+# Or use the short alias
+npx caia init
 ```
 
-### Option 2: GitHub Template
+That's it. Open your project in Claude Code, Cursor, or VS Code and start working.
 
-Click **"Use this template"** button on GitHub to create a new repository.
-
-### Option 3: Manual Clone
+## CLI Commands
 
 ```bash
-git clone https://github.com/Aftab-web-dev/claude-ai-automation.git
-cp -r claude-ai-automation/template/* your-project/
+# Setup
+caia init                  # Initialize in current directory
+caia init --force          # Overwrite existing files
+caia init --dry-run        # Preview what would be created
+caia upgrade               # Update agents and system files
+caia doctor                # Diagnose setup issues
+
+# Agents
+caia list                  # List all installed agents
+caia list dev              # List development agents only
+caia list life             # List life/personal agents only
+caia add create <name>     # Create a custom agent
+caia add remove <name>     # Remove an agent
+
+# Workflows
+caia workflow list         # List all workflows
+caia workflow create <n>   # Create a new workflow
+caia workflow show <n>     # Show workflow details
+caia workflow delete <n>   # Delete a workflow
+
+# Configuration
+caia config                # Show current config
+caia config set <k> <v>    # Set a config value
+caia config get <key>      # Get a config value
+caia config reset          # Reset to defaults
+
+# Multi-LLM
+caia llm list              # List supported LLMs
+caia llm use <name>        # Switch LLM platform
+caia llm detect            # Detect current LLM
+caia llm generate          # Generate configs for all LLMs
+
+# Analytics
+caia status                # Show project status
+caia telemetry on/off      # Enable/disable analytics
+caia telemetry stats       # View usage statistics
+caia analytics             # View analytics dashboard
+
+# General
+caia help                  # Show full help
+caia --version             # Show version
 ```
 
 ## How It Works
@@ -42,10 +83,10 @@ cp -r claude-ai-automation/template/* your-project/
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    CLAUDE.md (Controller)                    │
-│  - Reads session state & user memory                         │
-│  - Detects task type (Development vs Life)                   │
-│  - Routes to appropriate agent                               │
-│  - Enforces quality gates & safety protocols                 │
+│  - Reads session state & user memory                        │
+│  - Detects task type (Development vs Life)                  │
+│  - Routes to appropriate agent                              │
+│  - Enforces quality gates & safety protocols                │
 └─────────────────────────────────────────────────────────────┘
                               │
               ┌───────────────┴───────────────┐
@@ -60,16 +101,14 @@ cp -r claude-ai-automation/template/* your-project/
 │ Continuity   │ Risk      │    │ Wellness  │ Stress      │
 │ State Manager│           │    │ Travel    │ Writer      │
 │              │           │    │ Fitness   │ Productivity│
-│              │           │    │ Analyst   │ Relationships│
-│              │           │    │ Sexual Health            │
+│              │           │    │ + 10 more               │
 └──────────────────────────┘    └──────────────────────────┘
               │                               │
               ▼                               ▼
 ┌──────────────────────────┐    ┌──────────────────────────┐
 │  Standards & Checklists  │    │  Safety & Disclaimers    │
-│  - Code Standards        │    │  - Crisis Escalation     │
-│  - API/DB Design         │    │  - Professional Referrals│
-│  - Quality Gates         │    │  - Mandatory Disclaimers │
+│  Quality Gates           │    │  Crisis Escalation       │
+│  Workflow Pipelines      │    │  Professional Referrals  │
 └──────────────────────────┘    └──────────────────────────┘
 ```
 
@@ -82,12 +121,12 @@ cp -r claude-ai-automation/template/* your-project/
 | **Requirements** | Unclear requirements | Gathers and clarifies what to build |
 | **Risk Assessment** | New projects | Identifies risks before development |
 | **Planner** | "Plan", new project | Creates architecture and detailed plans |
-| **Execution** | "Build", "Start", "Execute" | Implements code step-by-step |
+| **Execution** | "Build", "Start" | Implements code step-by-step |
 | **Continuity** | Returning to project | Reconstructs context from session |
 | **Tester** | "Test", "QA" | Creates and runs tests |
 | **Reviewer** | "Review", "Audit" | Code quality analysis |
-| **Security** | "Security", "Vulnerabilities" | Security audit |
-| **Debugger** | "Debug", "Fix bug", "Error" | Bug investigation and fixing |
+| **Security** | "Security" | Security audit |
+| **Debugger** | "Debug", "Fix bug" | Bug investigation and fixing |
 | **Refactor** | "Refactor", "Clean up" | Code improvement |
 | **State Manager** | After any task | Updates session files |
 
@@ -95,208 +134,167 @@ cp -r claude-ai-automation/template/* your-project/
 
 | Agent | Trigger | Purpose |
 |-------|---------|---------|
-| **Interview** | "Interview", "job prep" | Mock interviews, answer coaching, salary negotiation |
-| **Finance** | "Invest", "budget", "money" | Financial education, investments, scam awareness |
-| **Doctor** | "Health", "symptom" | Medical education, symptom guidance, specialist referrals |
-| **Lawyer** | "Legal", "law", "rights" | Legal awareness, rights education, process guidance |
-| **Career** | "Career", "job search" | Resume, job search, professional development |
-| **Business** | "Startup", "business idea" | Entrepreneurship, idea validation, market analysis |
-| **Teaching** | "Teach", "learn", "exam" | Education, concept explanation, exam prep |
-| **Research** | "Research", "explain" | Deep research and analysis on any topic |
-| **Wellness** | "Anxious", "overwhelmed" | Mental wellness, emotional support, self-care |
-| **Stress** | "Stressed", "burnout" | Stress management, coping techniques, resilience |
-| **Travel** | "Trip", "travel", "vacation" | Destination research, itinerary planning |
-| **Writer** | "Write", "content", "draft" | Content creation, copywriting, editing |
-| **Fitness** | "Workout", "gym", "exercise" | Exercise guidance, workout plans |
-| **Productivity** | "Organize", "focus", "habits" | Time management, habit building |
-| **Analyst** | "Analyze", "data", "metrics" | Data analysis, insights, visualization |
-| **Relationships** | "Love", "dating", "breakup" | Healthy relationship guidance, emotional healing |
-| **Sexual Health** | "Sexual health", "puberty" | Science-based sexual health education |
-| **Resume** | "Resume", "LinkedIn", "CV" | Resume writing, ATS optimization, personal branding |
-| **Negotiation** | "Negotiate", "salary", "raise" | Salary, business, and life negotiation coaching |
-| **Parenting** | "Parenting", "child", "kids" | Evidence-based parenting guidance |
-| **Social Media** | "Instagram", "TikTok", "content" | Content strategy and social media growth |
-| **Study** | "Study", "exam prep", "flashcards" | Study techniques and exam preparation |
-| **Email** | "Email", "message", "reply" | Professional communication and email writing |
+| **Interview** | "Interview", "job prep" | Mock interviews, answer coaching |
+| **Finance** | "Invest", "budget" | Financial education, investments |
+| **Doctor** | "Health", "symptom" | Medical education (not diagnosis) |
+| **Lawyer** | "Legal", "law" | Legal awareness, rights education |
+| **Career** | "Career", "job search" | Professional development |
+| **Business** | "Startup", "business" | Entrepreneurship, idea validation |
+| **Teaching** | "Teach", "learn" | Education, concept explanation |
+| **Research** | "Research", "explain" | Deep research and analysis |
+| **Wellness** | "Anxious", "overwhelmed" | Mental wellness, emotional support |
+| **Stress** | "Stressed", "burnout" | Stress management, coping |
+| **Travel** | "Trip", "travel" | Trip planning, itineraries |
+| **Writer** | "Write", "content" | Content creation, copywriting |
+| **Fitness** | "Workout", "gym" | Exercise guidance, workout plans |
+| **Productivity** | "Organize", "focus" | Time management, habits |
+| **Analyst** | "Analyze", "data" | Data analysis, insights |
+| **Relationships** | "Love", "dating" | Relationship guidance |
+| **Sexual Health** | "Sexual health" | Science-based health education |
+| **Resume** | "Resume", "LinkedIn" | Resume writing, personal branding |
+| **Negotiation** | "Negotiate", "salary" | Negotiation coaching |
+| **Parenting** | "Parenting", "child" | Evidence-based parenting |
+| **Social Media** | "Instagram", "TikTok" | Content strategy and growth |
+| **Study** | "Study", "exam prep" | Study techniques, exam preparation |
+| **Email** | "Email", "message" | Professional communication |
 
-## Usage Examples
+## Multi-LLM Support
 
-### Start a New Project
-```
-You: "I want to build a task management API"
+Works with any AI platform that supports custom instructions:
 
-Claude:
-1. Activates Requirements Agent (clarifies what you need)
-2. Activates Risk Assessment Agent (identifies risks)
-3. Activates Planner Agent (creates architecture)
-4. Creates /docs/planning.md
-5. Asks: "Ready to start building?"
-```
+| LLM | Config File | Status |
+|-----|------------|--------|
+| **Claude** | `CLAUDE.md` | Full support |
+| **GPT** | `AGENTS.md` | Full support |
+| **Gemini** | `GEMINI.md` | Full support |
+| **GitHub Copilot** | `.github/copilot-instructions.md` | Full support |
 
-### Continue Working
-```
-You: "Continue"
+```bash
+# Switch LLM platform
+caia llm use gpt
 
-Claude:
-1. Reads .session/state.md
-2. Activates Continuity Agent (summarizes progress)
-3. Activates Execution Agent
-4. Continues from exact last point
+# Generate configs for all platforms
+caia llm generate
 ```
 
-### Debug an Issue
-```
-You: "The login is not working"
+## Plugin System
 
-Claude:
-1. Activates Debugger Agent
-2. Investigates the issue
-3. Finds root cause
-4. Proposes and implements fix
-5. Updates session
-```
+### Create Custom Agents
 
-### Life Agent Examples
+```bash
+# Create a new agent
+caia add create my-agent
 
-**Interview Preparation:**
-```
-You: "Help me prepare for a PM interview"
+# This creates:
+# .aiautomations/prompts/my-agentagent.md (prompt template)
+# .aiautomations/agents/my-agent.json (agent config)
 
-Claude:
-1. Activates Interview Agent
-2. Assesses your experience level
-3. Conducts mock interview with real questions
-4. Provides feedback on answers
-5. Suggests improvements
+# Remove an agent
+caia add remove my-agent
 ```
 
-**Financial Guidance:**
-```
-You: "Should I invest in mutual funds or stocks?"
+### Agent Configuration
 
-Claude:
-1. Activates Finance Agent
-2. Explains both options clearly
-3. Discusses risks and returns
-4. Covers common mistakes
-5. Includes mandatory disclaimer
-```
+Each agent can have a config file in `.aiautomations/agents/`:
 
-**Health Concerns:**
-```
-You: "I have persistent headaches"
-
-Claude:
-1. Activates Doctor Agent
-2. Asks clarifying questions
-3. Explains possible causes (non-diagnostic)
-4. Identifies red flags to watch for
-5. Recommends which specialist to consult
+```json
+{
+  "name": "my-agent",
+  "version": "1.0.0",
+  "type": "custom",
+  "category": "custom",
+  "triggers": ["keyword1", "keyword2"],
+  "description": "What this agent does",
+  "file": "my-agentagent.md",
+  "dependencies": []
+}
 ```
 
-**Stress Management:**
-```
-You: "I'm stressed about work deadlines"
+## Workflow Composer
 
-Claude:
-1. Activates Stress Agent
-2. Validates the feeling
-3. Provides immediate breathing technique
-4. Discusses long-term strategies
-5. Offers practical boundary-setting advice
+Define multi-agent pipelines with YAML:
+
+```yaml
+# .aiautomations/workflows/blog-post.yml
+name: blog-post
+description: Research and write a blog post
+
+steps:
+  - agent: research
+    task: "Research the topic thoroughly"
+    output: research_notes
+
+  - agent: writer
+    task: "Write article based on research"
+    input: research_notes
+    output: draft
+
+  - agent: reviewer
+    task: "Review for quality and accuracy"
+    input: draft
+    output: final
+```
+
+### Built-in Workflows
+
+| Workflow | Agents | Purpose |
+|----------|--------|---------|
+| `research-and-write` | Research → Writer → Reviewer | Content creation pipeline |
+| `career-prep` | Career → Resume → Interview → Negotiation | Job preparation |
+| `full-dev-cycle` | Requirements → Risk → Plan → Execute → Test → Review → Security | Complete dev cycle |
+
+```bash
+# Manage workflows
+caia workflow list
+caia workflow create my-pipeline
+caia workflow show my-pipeline
+```
+
+## Analytics Dashboard
+
+Track your usage patterns locally (opt-in):
+
+```bash
+# Enable analytics
+caia telemetry on
+
+# View statistics
+caia telemetry stats
+
+# View full dashboard with charts
+caia analytics
+
+# All data stays local - nothing sent externally
 ```
 
 ## Project Structure
 
-After initialization, your project will have:
-
 ```
 your-project/
-├── CLAUDE.md                    # Main controller (Claude reads this)
+├── CLAUDE.md                    # Main controller
 ├── .aiautomations/
-│   ├── prompts/                 # All 28 agent prompts
-│   │   ├── orchestrator.md      # Master routing logic
-│   │   │
-│   │   ├── [Development Agents]
-│   │   │   ├── requirementsagent.md
-│   │   │   ├── riskassessmentagent.md
-│   │   │   ├── planningprompt.md
-│   │   │   ├── execution.md
-│   │   │   ├── continuityagent.md
-│   │   │   ├── testeragent.md
-│   │   │   ├── revieweragent.md
-│   │   │   ├── securityagent.md
-│   │   │   ├── debuggeragent.md
-│   │   │   ├── refactoragent.md
-│   │   │   └── statemanageragent.md
-│   │   │
-│   │   └── [Life Agents]
-│   │       ├── interviewagent.md
-│   │       ├── financeagent.md
-│   │       ├── doctoragent.md
-│   │       ├── lawyeragent.md
-│   │       ├── careeragent.md
-│   │       ├── businessagent.md
-│   │       ├── teachingagent.md
-│   │       ├── researchagent.md
-│   │       ├── wellnessagent.md
-│   │       ├── stressagent.md
-│   │       ├── travelagent.md
-│   │       ├── writeragent.md
-│   │       ├── fitnessagent.md
-│   │       ├── productivityagent.md
-│   │       ├── analyseragent.md
-│   │       ├── loveguideragent.md
-│   │       └── sexualagent.md
-│   │
+│   ├── config.json              # Project configuration
+│   ├── prompts/                 # 34+ agent prompts
 │   ├── protocols/               # System protocols
-│   │   ├── collaboration.md     # Multi-agent coordination
-│   │   ├── memory.md           # Context persistence
-│   │   ├── quality.md          # Quality standards
-│   │   └── escalation.md       # Emergency handling
-│   │
 │   ├── standards/               # Code & design standards
-│   │   ├── codestandards.md
-│   │   ├── techstack.md
-│   │   ├── apidesign.md
-│   │   ├── databasedesign.md
-│   │   ├── validation.md
-│   │   ├── frontendstandards.md
-│   │   ├── testingstandards.md
-│   │   └── documentationstandards.md
-│   │
 │   ├── checklists/              # Quality checklists
-│   │   ├── beforecode.md
-│   │   ├── aftercode.md
-│   │   ├── prchecklist.md
-│   │   ├── deploymentchecklist.md
-│   │   └── securitychecklist.md
-│   │
-│   └── templates/               # Planning templates
-│       ├── planning-web.md
-│       ├── planning-api.md
-│       ├── planning-cli.md
-│       ├── planning-mobile.md
-│       ├── planning-datasci.md
-│       └── architecturedecisions.md
-│
-├── .session/                    # Session persistence (dev)
-│   ├── state.md                 # Current project state
-│   ├── log.md                   # Action history
-│   └── next.md                  # Next steps
-│
-└── .memory/                     # User memory (universal)
-    ├── user.md                  # User preferences
-    └── context.md               # Session context
+│   ├── templates/               # Planning templates
+│   ├── workflows/               # Multi-agent pipelines
+│   └── agents/                  # Custom agent configs
+├── .session/                    # Session persistence
+│   ├── state.md
+│   ├── log.md
+│   └── next.md
+└── .memory/                     # User memory
+    ├── user.md
+    └── context.md
 ```
 
 ## Quality Gates
 
 ### For Development
-Code is not considered complete until:
-
 - [ ] Lint passes (no errors)
-- [ ] Type check passes (no errors)
+- [ ] Type check passes
 - [ ] Tests pass (all green)
 - [ ] Build succeeds
 - [ ] Security reviewed
@@ -304,73 +302,78 @@ Code is not considered complete until:
 - [ ] Session updated
 
 ### For Life Agents
-Responses must include:
-
 - [ ] Question fully addressed
 - [ ] Appropriate disclaimers included
 - [ ] Professional referral when needed
 - [ ] Crisis resources for emergencies
-- [ ] No harmful or misleading information
 
 ## Safety Features
 
-Life agents include built-in safety protocols:
-
 | Topic | Safety Measures |
 |-------|-----------------|
-| **Health** | Medical disclaimer, "consult a doctor" reminder, never diagnoses |
-| **Finance** | "Not financial advice" disclaimer, risk warnings, no stock tips |
-| **Legal** | Legal disclaimer, "consult a lawyer" reminder, jurisdiction aware |
-| **Mental Health** | Crisis hotlines provided, professional help encouraged |
-| **Relationships** | Consent emphasis, no manipulation tactics |
+| **Health** | Medical disclaimer, never diagnoses |
+| **Finance** | "Not financial advice" disclaimer |
+| **Legal** | "Consult a lawyer" reminder |
+| **Mental Health** | Crisis hotlines provided |
+| **Relationships** | Consent emphasis |
 
 ### Crisis Escalation
-Agents automatically provide crisis resources when detecting:
+Agents automatically provide crisis resources:
 - Suicidal thoughts → 988, Crisis Text Line
 - Domestic violence → National DV Hotline
 - Sexual assault → RAINN
-- Severe medical symptoms → "Seek immediate help"
+- Severe symptoms → "Seek immediate help"
 
-## Customization
+## Development
 
-### Add Your Own Agent
+```bash
+# Install dev dependencies
+npm install
 
-1. Create a new file in `.aiautomations/prompts/youragent.md`
-2. Follow the existing agent format
-3. Add it to the agent list in `CLAUDE.md`
-4. Add trigger words in the decision tree
+# Run tests
+npm test
 
-### Modify Standards
+# Run tests with coverage
+npm run test:coverage
 
-Edit files in `.aiautomations/standards/` to match your team's preferences:
-- `codestandards.md` - Naming conventions, formatting
-- `techstack.md` - Preferred technologies
-- `apidesign.md` - API design rules
-- `databasedesign.md` - Database conventions
+# Lint code
+npm run lint
 
-### Customize Checklists
+# Fix lint issues
+npm run lint:fix
 
-Edit files in `.aiautomations/checklists/` to add your own verification steps.
+# Check project health
+npm run doctor
+```
 
 ## Works With
 
 - **Claude Code** (CLI)
-- **Cursor** (with Claude)
-- **VS Code** (with Claude extension)
-- **Any IDE** where Claude can read project files
-
-## Commands
-
-| Command | Description |
-|---------|-------------|
-| `npx claude-ai-automation init` | Initialize in current directory |
-| `npx claude-ai-automation init --force` | Overwrite existing files |
-| `npx caia init` | Short alias |
+- **Cursor** (with Claude/GPT)
+- **VS Code** (with AI extensions)
+- **GitHub Copilot**
+- **Gemini CLI**
+- **Any IDE** with AI integration
 
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+### Adding Agents
+
+1. Create prompt in `.aiautomations/prompts/`
+2. Create config in `.aiautomations/agents/`
+3. Add to routing table in `CLAUDE.md`
+4. Add tests
+5. Submit PR
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
+
+## Links
+
+- [NPM Package](https://www.npmjs.com/package/claude-ai-automation)
+- [GitHub Repository](https://github.com/Aftab-web-dev/claude-ai-automation)
+- [Landing Page](https://aftab-web-dev.github.io/claude-ai-automation/)
+- [Report Issues](https://github.com/Aftab-web-dev/claude-ai-automation/issues)

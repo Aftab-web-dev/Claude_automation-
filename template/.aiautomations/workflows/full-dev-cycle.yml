@@ -1,0 +1,40 @@
+# Workflow: Full Development Cycle
+# Complete software development pipeline
+
+name: full-dev-cycle
+description: End-to-end development from requirements to deployment-ready code
+
+steps:
+  - agent: requirements
+    task: "Gather and document clear requirements"
+    output: requirements_doc
+
+  - agent: riskassessment
+    task: "Identify technical and business risks"
+    input: requirements_doc
+    output: risk_report
+
+  - agent: planner
+    task: "Create architecture and implementation plan"
+    input: requirements_doc
+    output: implementation_plan
+
+  - agent: execution
+    task: "Implement the code according to the plan"
+    input: implementation_plan
+    output: codebase
+
+  - agent: tester
+    task: "Write and run comprehensive tests"
+    input: codebase
+    output: test_results
+
+  - agent: reviewer
+    task: "Perform code quality review"
+    input: codebase
+    output: review_report
+
+  - agent: security
+    task: "Run security audit"
+    input: codebase
+    output: security_report

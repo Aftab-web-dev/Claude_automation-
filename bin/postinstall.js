@@ -37,21 +37,12 @@ function copyDir(src, dest) {
 }
 
 function findProjectRoot() {
-  // When installed via npm, we're in node_modules/claude-ai-automation/bin
-  // We need to go up to find the project root
   let currentDir = __dirname;
-
-  // Go up from bin/ to package root
   currentDir = path.dirname(currentDir);
-
-  // Check if we're in node_modules
   const parentDir = path.dirname(currentDir);
   if (path.basename(parentDir) === 'node_modules') {
-    // We're installed as a dependency, project root is parent of node_modules
     return path.dirname(parentDir);
   }
-
-  // We're being run directly (development), use cwd
   return process.cwd();
 }
 
@@ -60,13 +51,21 @@ function showNextSteps() {
   log('║                      NEXT STEPS                          ║', 'cyan');
   log('╚══════════════════════════════════════════════════════════╝\n', 'cyan');
 
-  log('  Open Claude and write:', 'bright');
+  log('  Quick start:', 'bright');
   log('  "Read the CLAUDE.md file and follow the instructions from there"', 'green');
   log('', 'reset');
+
+  log('  CLI Commands:', 'bright');
+  log('  npx caia status        → Show project status', 'reset');
+  log('  npx caia list          → List all agents', 'reset');
+  log('  npx caia doctor        → Diagnose setup issues', 'reset');
+  log('  npx caia upgrade       → Update agent prompts', 'reset');
+  log('  npx caia llm list      → Show supported LLMs', 'reset');
+  log('  npx caia workflow list → Show available workflows', 'reset');
+  log('  npx caia help          → Full help\n', 'reset');
 }
 
 function postinstall() {
-  // Skip if this is a global install or development
   if (process.env.npm_config_global === 'true') {
     return;
   }
@@ -74,44 +73,39 @@ function postinstall() {
   const projectRoot = findProjectRoot();
   const templateDir = path.join(__dirname, '..', 'template');
 
-  // Check if template exists (we're properly installed)
   if (!fs.existsSync(templateDir)) {
     return;
   }
 
-  // Check if we're actually in a node_modules context
   const parentDir = path.dirname(path.dirname(__dirname));
   if (path.basename(parentDir) !== 'node_modules') {
-    // Not installed as dependency, skip auto-setup
     return;
   }
 
   log('\n╔══════════════════════════════════════════════════════════╗', 'cyan');
-  log('║     Claude AI Automation System - Auto Setup             ║', 'cyan');
+  log('║     Claude AI Automation System v2.0 - Auto Setup       ║', 'cyan');
   log('╚══════════════════════════════════════════════════════════╝\n', 'cyan');
 
-  // Check if CLAUDE.md already exists
   if (fs.existsSync(path.join(projectRoot, 'CLAUDE.md'))) {
     log('✅ CLAUDE.md already exists. Skipping file copy.', 'yellow');
-    log('   Run "npx claude-ai-automation init --force" to overwrite.\n', 'yellow');
+    log('   Run "npx caia init --force" to overwrite.\n', 'yellow');
   } else {
     log('📁 Setting up automation system in your project...\n', 'blue');
 
     try {
-      // Copy template directory to project root
       copyDir(templateDir, projectRoot);
 
       log('✅ Created files:', 'green');
-      log('   └── CLAUDE.md (main controller)', 'reset');
-      log('   └── .aiautomations/', 'reset');
-      log('       ├── prompts/ (11 agent prompts)', 'reset');
-      log('       ├── standards/ (5 standard docs)', 'reset');
-      log('       ├── checklists/ (3 checklists)', 'reset');
-      log('       └── templates/ (4 planning templates)', 'reset');
-      log('   └── .session/', 'reset');
-      log('       ├── state.md', 'reset');
-      log('       ├── log.md', 'reset');
-      log('       └── next.md', 'reset');
+      log('   └── CLAUDE.md (main controller)');
+      log('   └── .aiautomations/');
+      log('       ├── prompts/ (34 agents: 11 dev + 23 life)');
+      log('       ├── protocols/ (collaboration, memory, quality, escalation)');
+      log('       ├── standards/ (8 standard docs)');
+      log('       ├── checklists/ (5 checklists)');
+      log('       ├── templates/ (6 planning templates)');
+      log('       └── workflows/ (3 sample workflows)');
+      log('   └── .session/ (session persistence)');
+      log('   └── .memory/ (user memory)');
 
       log('\n✅ Setup Complete!', 'green');
     } catch (error) {
@@ -120,7 +114,6 @@ function postinstall() {
     }
   }
 
-  // Show next steps
   showNextSteps();
 }
 

@@ -1,11 +1,11 @@
 {
   "name": "claude-ai-automation",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Universal AI assistant framework with 34+ agents for software development AND life/personal assistance - multi-LLM support, plugin system, workflow composer, analytics dashboard",
   "main": "index.js",
   "bin": {
-    "claude-ai-automation": "./bin/cli.js",
-    "yuva": "./bin/cli.js"
+    "claude-ai-automation": "bin/cli.js",
+    "yuva": "bin/cli.js"
   },
   "scripts": {
     "test": "vitest run",
@@ -59,7 +59,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Aftab-web-dev/claude-ai-automation.git"
+    "url": "git+https://github.com/Aftab-web-dev/claude-ai-automation.git"
   },
   "homepage": "https://github.com/Aftab-web-dev/claude-ai-automation#readme",
   "bugs": {

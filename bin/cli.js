@@ -32,7 +32,7 @@ const { log, box } = require('../lib/colors');
 
 function showHelp() {
   const pkg = require('../package.json');
-  box(`Claude AI Automation System v${pkg.version}`);
+  box(`Yuva AI v${pkg.version}`);
 
   log('Usage:', 'bright');
   log('  yuva <command> [options]\n');

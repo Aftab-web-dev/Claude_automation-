@@ -1,4 +1,4 @@
-# Claude AI Automation System
+# Yuva AI
 
 A powerful multi-agent AI framework for **software development** AND **life/personal assistance** with multi-LLM support, plugin system, workflow composer, and analytics.
 

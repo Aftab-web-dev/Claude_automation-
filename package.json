@@ -1,6 +1,6 @@
 {
   "name": "yuva-ai",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Yuva AI - Universal AI assistant framework with 34+ agents, 19 LLM platforms, plugin system, workflow composer, analytics dashboard",
   "main": "index.js",
   "bin": {

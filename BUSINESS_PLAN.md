@@ -1,4 +1,4 @@
-# Business Plan: Claude AI Automation System
+# Business Plan: Yuva AI
 
 ## Executive Summary
 
@@ -173,7 +173,7 @@ With team features and enterprise sales:
 
 3. **Paid Acquisition (if profitable)**
    - Twitter/X ads
-   - Google Ads for "Claude AI tools"
+   - Google Ads for "Yuva AI tools"
    - Sponsor developer newsletters
 
 ### Phase 3: Expansion (Months 7-12)

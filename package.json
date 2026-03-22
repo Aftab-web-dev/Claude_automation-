@@ -1,10 +1,10 @@
 {
-  "name": "claude-ai-automation",
-  "version": "3.0.1",
-  "description": "Universal AI assistant framework with 34+ agents for software development AND life/personal assistance - multi-LLM support, plugin system, workflow composer, analytics dashboard",
+  "name": "yuva-ai",
+  "version": "3.0.0",
+  "description": "Yuva AI - Universal AI assistant framework with 34+ agents, 19 LLM platforms, plugin system, workflow composer, analytics dashboard",
   "main": "index.js",
   "bin": {
-    "claude-ai-automation": "bin/cli.js",
+    "yuva-ai": "bin/cli.js",
     "yuva": "bin/cli.js"
   },
   "scripts": {
@@ -17,7 +17,8 @@
     "postinstall": "node bin/postinstall.js"
   },
   "keywords": [
-    "claude",
+    "yuva",
+    "yuva-ai",
     "ai",
     "automation",
     "multi-agent",
@@ -25,35 +26,24 @@
     "framework",
     "development",
     "code-quality",
-    "planning",
-    "testing",
-    "security",
-    "debugging",
     "life-assistant",
-    "interview-prep",
-    "finance",
-    "health",
-    "career",
-    "wellness",
-    "productivity",
     "personal-assistant",
-    "resume",
-    "negotiation",
-    "parenting",
-    "social-media",
-    "study",
-    "email",
-    "cursor",
-    "claude-code",
-    "anthropic",
+    "ollama",
     "gpt",
     "gemini",
     "copilot",
+    "claude",
+    "cursor",
+    "windsurf",
+    "opencode",
+    "codex",
+    "aider",
+    "kilo-code",
     "multi-llm",
+    "open-source",
     "workflow",
     "plugin-system",
-    "analytics",
-    "telemetry"
+    "analytics"
   ],
   "author": "aftabshaikh4643",
   "license": "MIT",
@@ -80,8 +70,5 @@
     "@vitest/coverage-v8": "^3.2.4",
     "eslint": "^9.39.4",
     "vitest": "^3.2.4"
-  },
-  "dependencies": {
-    "@rollup/rollup-win32-x64-msvc": "^4.60.0"
   }
 }

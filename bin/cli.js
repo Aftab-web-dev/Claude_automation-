@@ -17,7 +17,7 @@ const subArgs = commands.slice(1);
 // Version check
 if (flags.version) {
   const pkg = require('../package.json');
-  console.log(`claude-ai-automation v${pkg.version}`);
+  console.log(`yuva-ai v${pkg.version}`);
   process.exit(0);
 }
 
@@ -79,7 +79,7 @@ function showHelp() {
   log('  npx yuva llm use gpt');
   log('  npx yuva status\n');
 
-  log('Documentation: https://github.com/Aftab-web-dev/claude-ai-automation\n', 'cyan');
+  log('Documentation: https://github.com/Aftab-web-dev/yuva-ai\n', 'cyan');
 }
 
 // Route commands

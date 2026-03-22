@@ -2,7 +2,7 @@
 
 A powerful multi-agent AI framework for **software development** AND **life/personal assistance** with multi-LLM support, plugin system, workflow composer, and analytics.
 
-[![npm version](https://img.shields.io/npm/v/claude-ai-automation.svg)](https://www.npmjs.com/package/claude-ai-automation)
+[![npm version](https://img.shields.io/npm/v/yuva-ai.svg)](https://www.npmjs.com/package/yuva-ai)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Tests](https://img.shields.io/badge/tests-vitest-green.svg)](https://vitest.dev/)
 
@@ -24,7 +24,7 @@ A **universal AI assistant framework** that turns your AI into a comprehensive m
 
 ```bash
 # Install and initialize
-npx claude-ai-automation init
+npx yuva-ai init
 
 # Or use the short alias
 npx yuva init
@@ -403,7 +403,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Links
 
-- [NPM Package](https://www.npmjs.com/package/claude-ai-automation)
-- [GitHub Repository](https://github.com/Aftab-web-dev/claude-ai-automation)
-- [Landing Page](https://aftab-web-dev.github.io/claude-ai-automation/)
-- [Report Issues](https://github.com/Aftab-web-dev/claude-ai-automation/issues)
+- [NPM Package](https://www.npmjs.com/package/yuva-ai)
+- [GitHub Repository](https://github.com/Aftab-web-dev/yuva-ai)
+- [Landing Page](https://aftab-web-dev.github.io/yuva-ai/)
+- [Report Issues](https://github.com/Aftab-web-dev/yuva-ai/issues)

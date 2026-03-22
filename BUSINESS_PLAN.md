@@ -275,8 +275,8 @@ With team features and enterprise sales:
 
 ## Contact & Links
 
-- **NPM**: https://www.npmjs.com/package/claude-ai-automation
-- **GitHub**: https://github.com/Aftab-web-dev/claude-ai-automation
+- **NPM**: https://www.npmjs.com/package/yuva-ai
+- **GitHub**: https://github.com/Aftab-web-dev/yuva-ai
 - **Author**: Aftab Shaikh
 
 ---

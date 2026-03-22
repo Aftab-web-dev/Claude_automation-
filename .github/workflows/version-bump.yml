@@ -76,7 +76,7 @@ jobs:
 
             ## Installation
             ```bash
-            npx claude-ai-automation init
+            npx yuva-ai init
             ```
 
             Full changelog: https://github.com/${{ github.repository }}/commits/v${{ steps.version.outputs.new_version }}

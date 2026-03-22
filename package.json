@@ -5,7 +5,7 @@
   "main": "index.js",
   "bin": {
     "claude-ai-automation": "./bin/cli.js",
-    "caia": "./bin/cli.js"
+    "yuva": "./bin/cli.js"
   },
   "scripts": {
     "test": "vitest run",

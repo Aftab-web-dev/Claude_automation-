@@ -27,7 +27,7 @@ A **universal AI assistant framework** that turns your AI into a comprehensive m
 npx claude-ai-automation init
 
 # Or use the short alias
-npx caia init
+npx yuva init
 ```
 
 That's it. Open your project in Claude Code, Cursor, or VS Code and start working.
@@ -36,46 +36,46 @@ That's it. Open your project in Claude Code, Cursor, or VS Code and start workin
 
 ```bash
 # Setup
-caia init                  # Initialize in current directory
-caia init --force          # Overwrite existing files
-caia init --dry-run        # Preview what would be created
-caia upgrade               # Update agents and system files
-caia doctor                # Diagnose setup issues
+yuva init                  # Initialize in current directory
+yuva init --force          # Overwrite existing files
+yuva init --dry-run        # Preview what would be created
+yuva upgrade               # Update agents and system files
+yuva doctor                # Diagnose setup issues
 
 # Agents
-caia list                  # List all installed agents
-caia list dev              # List development agents only
-caia list life             # List life/personal agents only
-caia add create <name>     # Create a custom agent
-caia add remove <name>     # Remove an agent
+yuva list                  # List all installed agents
+yuva list dev              # List development agents only
+yuva list life             # List life/personal agents only
+yuva add create <name>     # Create a custom agent
+yuva add remove <name>     # Remove an agent
 
 # Workflows
-caia workflow list         # List all workflows
-caia workflow create <n>   # Create a new workflow
-caia workflow show <n>     # Show workflow details
-caia workflow delete <n>   # Delete a workflow
+yuva workflow list         # List all workflows
+yuva workflow create <n>   # Create a new workflow
+yuva workflow show <n>     # Show workflow details
+yuva workflow delete <n>   # Delete a workflow
 
 # Configuration
-caia config                # Show current config
-caia config set <k> <v>    # Set a config value
-caia config get <key>      # Get a config value
-caia config reset          # Reset to defaults
+yuva config                # Show current config
+yuva config set <k> <v>    # Set a config value
+yuva config get <key>      # Get a config value
+yuva config reset          # Reset to defaults
 
 # Multi-LLM
-caia llm list              # List supported LLMs
-caia llm use <name>        # Switch LLM platform
-caia llm detect            # Detect current LLM
-caia llm generate          # Generate configs for all LLMs
+yuva llm list              # List supported LLMs
+yuva llm use <name>        # Switch LLM platform
+yuva llm detect            # Detect current LLM
+yuva llm generate          # Generate configs for all LLMs
 
 # Analytics
-caia status                # Show project status
-caia telemetry on/off      # Enable/disable analytics
-caia telemetry stats       # View usage statistics
-caia analytics             # View analytics dashboard
+yuva status                # Show project status
+yuva telemetry on/off      # Enable/disable analytics
+yuva telemetry stats       # View usage statistics
+yuva analytics             # View analytics dashboard
 
 # General
-caia help                  # Show full help
-caia --version             # Show version
+yuva help                  # Show full help
+yuva --version             # Show version
 ```
 
 ## How It Works
@@ -160,21 +160,53 @@ caia --version             # Show version
 
 ## Multi-LLM Support
 
-Works with any AI platform that supports custom instructions:
+Works with **18+ AI platforms** — commercial, open-source, and terminal-based:
 
+### Commercial
 | LLM | Config File | Status |
 |-----|------------|--------|
 | **Claude** | `CLAUDE.md` | Full support |
-| **GPT** | `AGENTS.md` | Full support |
+| **GPT / Codex** | `AGENTS.md` | Full support |
 | **Gemini** | `GEMINI.md` | Full support |
 | **GitHub Copilot** | `.github/copilot-instructions.md` | Full support |
+| **Cursor** | `.cursor/rules/yuva.mdc` | Full support |
+| **Windsurf** | `.windsurfrules` | Full support |
+| **Cody** | `.sourcegraph/instructions.md` | Full support |
+| **Amazon Q** | `.amazonq/instructions.md` | Full support |
+
+### Open Source / Local
+| LLM | Config File | Status |
+|-----|------------|--------|
+| **Ollama** (Llama, Mistral, DeepSeek, Qwen) | `OLLAMA_INSTRUCTIONS.md` | Full support |
+| **LM Studio** | `OLLAMA_INSTRUCTIONS.md` | Full support |
+| **Jan.ai** | `OLLAMA_INSTRUCTIONS.md` | Full support |
+| **Continue.dev** | `.continue/instructions.md` | Full support |
+| **Open Interpreter** | `CLAUDE.md` | Full support |
+| **LLM CLI** | `CLAUDE.md` | Full support |
+| **Tabby** | `CLAUDE.md` | Full support |
+
+### Terminal / CLI
+| LLM | Config File | Status |
+|-----|------------|--------|
+| **OpenCode** | `AGENTS.md` | Full support |
+| **Kilo Code** | `.kilo/instructions.md` | Full support |
+| **Aider** | `.aider.conf.yml` | Full support |
 
 ```bash
+# List all supported LLMs
+yuva llm list
+
+# List by category
+yuva llm list open-source
+
 # Switch LLM platform
-caia llm use gpt
+yuva llm use ollama
 
 # Generate configs for all platforms
-caia llm generate
+yuva llm generate
+
+# See suggested models for a platform
+yuva llm models ollama
 ```
 
 ## Plugin System
@@ -183,14 +215,14 @@ caia llm generate
 
 ```bash
 # Create a new agent
-caia add create my-agent
+yuva add create my-agent
 
 # This creates:
 # .aiautomations/prompts/my-agentagent.md (prompt template)
 # .aiautomations/agents/my-agent.json (agent config)
 
 # Remove an agent
-caia add remove my-agent
+yuva add remove my-agent
 ```
 
 ### Agent Configuration
@@ -245,9 +277,9 @@ steps:
 
 ```bash
 # Manage workflows
-caia workflow list
-caia workflow create my-pipeline
-caia workflow show my-pipeline
+yuva workflow list
+yuva workflow create my-pipeline
+yuva workflow show my-pipeline
 ```
 
 ## Analytics Dashboard
@@ -256,13 +288,13 @@ Track your usage patterns locally (opt-in):
 
 ```bash
 # Enable analytics
-caia telemetry on
+yuva telemetry on
 
 # View statistics
-caia telemetry stats
+yuva telemetry stats
 
 # View full dashboard with charts
-caia analytics
+yuva analytics
 
 # All data stays local - nothing sent externally
 ```
@@ -348,12 +380,10 @@ npm run doctor
 
 ## Works With
 
-- **Claude Code** (CLI)
-- **Cursor** (with Claude/GPT)
-- **VS Code** (with AI extensions)
-- **GitHub Copilot**
-- **Gemini CLI**
-- **Any IDE** with AI integration
+**Commercial:** Claude Code, Cursor, Windsurf, GitHub Copilot, Gemini CLI, Amazon Q, Cody
+**Open Source:** Ollama, LM Studio, Jan.ai, Continue.dev, Open Interpreter, LLM CLI, Tabby
+**Terminal:** OpenCode, Codex CLI, Kilo Code, Aider
+**Models:** Llama 3, Mistral, CodeLlama, DeepSeek Coder, Qwen, Phi-3, Gemma, StarCoder, GPT-4, Claude, Gemini
 
 ## Contributing
 

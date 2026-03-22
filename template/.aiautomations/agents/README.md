@@ -23,7 +23,7 @@ Each agent config is a JSON file with the following structure:
 Use the CLI to create agents:
 
 ```bash
-npx caia add create my-agent
+npx yuva add create my-agent
 ```
 
 This creates both the prompt file and the config file automatically.

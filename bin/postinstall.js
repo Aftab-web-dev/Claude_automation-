@@ -56,13 +56,13 @@ function showNextSteps() {
   log('', 'reset');
 
   log('  CLI Commands:', 'bright');
-  log('  npx caia status        → Show project status', 'reset');
-  log('  npx caia list          → List all agents', 'reset');
-  log('  npx caia doctor        → Diagnose setup issues', 'reset');
-  log('  npx caia upgrade       → Update agent prompts', 'reset');
-  log('  npx caia llm list      → Show supported LLMs', 'reset');
-  log('  npx caia workflow list → Show available workflows', 'reset');
-  log('  npx caia help          → Full help\n', 'reset');
+  log('  npx yuva status        → Show project status', 'reset');
+  log('  npx yuva list          → List all agents', 'reset');
+  log('  npx yuva doctor        → Diagnose setup issues', 'reset');
+  log('  npx yuva upgrade       → Update agent prompts', 'reset');
+  log('  npx yuva llm list      → Show supported LLMs', 'reset');
+  log('  npx yuva workflow list → Show available workflows', 'reset');
+  log('  npx yuva help          → Full help\n', 'reset');
 }
 
 function postinstall() {
@@ -88,7 +88,7 @@ function postinstall() {
 
   if (fs.existsSync(path.join(projectRoot, 'CLAUDE.md'))) {
     log('✅ CLAUDE.md already exists. Skipping file copy.', 'yellow');
-    log('   Run "npx caia init --force" to overwrite.\n', 'yellow');
+    log('   Run "npx yuva init --force" to overwrite.\n', 'yellow');
   } else {
     log('📁 Setting up automation system in your project...\n', 'blue');
 

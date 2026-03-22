@@ -35,7 +35,7 @@ function showHelp() {
   box(`Claude AI Automation System v${pkg.version}`);
 
   log('Usage:', 'bright');
-  log('  caia <command> [options]\n');
+  log('  yuva <command> [options]\n');
 
   log('Setup Commands:', 'bright');
   log('  init              Initialize in current directory');
@@ -72,12 +72,12 @@ function showHelp() {
   log('  --version, -v     Show version\n');
 
   log('Examples:', 'bright');
-  log('  npx caia init');
-  log('  npx caia list dev');
-  log('  npx caia add create my-custom-agent');
-  log('  npx caia workflow create blog-pipeline');
-  log('  npx caia llm use gpt');
-  log('  npx caia status\n');
+  log('  npx yuva init');
+  log('  npx yuva list dev');
+  log('  npx yuva add create my-custom-agent');
+  log('  npx yuva workflow create blog-pipeline');
+  log('  npx yuva llm use gpt');
+  log('  npx yuva status\n');
 
   log('Documentation: https://github.com/Aftab-web-dev/claude-ai-automation\n', 'cyan');
 }
@@ -149,7 +149,7 @@ switch (command) {
       showHelp();
     } else {
       log(`\n❌ Unknown command: ${command}`, 'red');
-      log('   Run "caia help" for usage.\n', 'reset');
+      log('   Run "yuva help" for usage.\n', 'reset');
       process.exit(1);
     }
 }

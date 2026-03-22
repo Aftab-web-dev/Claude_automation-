@@ -8,7 +8,7 @@ describe('fs-utils', () => {
   let tmpDir;
 
   beforeEach(() => {
-    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'caia-fsutils-'));
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'yuva-fsutils-'));
   });
 
   afterEach(() => {

@@ -7,7 +7,7 @@ describe('CLI', () => {
   let tmpDir;
 
   beforeEach(() => {
-    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'caia-test-'));
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'yuva-test-'));
   });
 
   afterEach(() => {

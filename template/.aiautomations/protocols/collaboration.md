@@ -98,17 +98,28 @@ Agent A + Agent B → Joint output
 
 ## Handoff Triggers by Agent
 
-### Development Agents
+### Development Agents (Automatic Pipeline)
 
-| From Agent | To Agent | Trigger |
-|------------|----------|---------|
-| Requirements | Planner | Requirements complete |
-| Planner | Execution | Plan approved |
-| Execution | Tester | Feature implemented |
-| Tester | Debugger | Bugs found |
-| Debugger | Execution | Bug fixed, continue work |
-| Reviewer | Refactor | Quality issues found |
-| Any Dev | Security | Security review needed |
+**These handoffs happen AUTOMATICALLY. The State Manager updates session after each one.**
+
+| From Agent | To Agent | Trigger | Context Passed (via context.md) |
+|------------|----------|---------|-------------------------------|
+| Existing Code | Any Dev Agent | Code exists in project | Codebase Context section |
+| Requirements | Risk Assessment | Requirements complete | User Requirements Summary |
+| Risk Assessment | Planner | Risk assessed | Risk findings |
+| Planner | Execution | Plan approved | Architecture + plan |
+| Execution | Tester | Code written | Code Written section |
+| Tester | Debugger | Tests fail | Test Results section |
+| Debugger | Tester | Bug fixed | Updated code + fix description |
+| Tester | Security | Tests pass | Test Results section |
+| Security | Debugger | Issues found (user approved fix) | Security Report section |
+| Debugger | Security | Security fix applied | Updated code |
+| Security | Refactor | Scan complete | Security Report section |
+| Refactor | Tester | Code refactored | Refactor Changes section |
+| Refactor | Security | Code refactored | Refactor Changes section |
+| Tester + Security | Reviewer | Both pass after refactor | All sections |
+| Reviewer | Any Agent | Changes needed | Review Verdict section |
+| Reviewer | State Manager | APPROVED | Final state |
 
 ### Life Agents
 
@@ -134,24 +145,63 @@ Agent A + Agent B → Joint output
 
 ## Context Preservation Rules
 
-When handing off or collaborating:
+### The Agent Context Bus (`.session/context.md`)
 
-### 1. User Context Must Transfer
+**This is the primary mechanism for passing context between agents.**
+
+Every development agent MUST:
+1. **READ** `.session/context.md` before starting any work
+2. **WRITE** their section to `.session/context.md` after completing work
+3. **NEVER** erase or overwrite other agents' sections
+
+The context bus has these sections:
+- **User Requirements Summary** — what the user asked for
+- **User Decisions** — answers to the 6 mandatory questions
+- **Codebase Context** — from Existing Code Agent
+- **Code Written** — from Execution Agent
+- **Test Results** — from Tester Agent
+- **Security Report** — from Security Agent
+- **Refactor Changes** — from Refactor Agent
+- **Review Verdict** — from Reviewer Agent
+
+### Why This Exists
+
+Without the context bus, agents lose critical information:
+- Security Agent doesn't know what code was written
+- Debugger doesn't know what tests failed or what security found
+- Refactor Agent doesn't know what security issues to address
+- Reviewer doesn't know the full history of changes
+
+The context bus ensures every agent has the full picture.
+
+### Session Updates After Every Agent
+
+The State Manager MUST run after EVERY agent — not just at the end. This means:
+- `.session/state.md` is always current (even if conversation breaks)
+- `.session/log.md` has every agent's action logged
+- `.session/context.md` has every agent's output for the next agent
+
+### When handing off or collaborating:
+
+#### 1. User Context Must Transfer
 - Original user request
 - User's stated preferences
 - User's situation/background
 - Previous relevant interactions
+- Answers to the 6 mandatory questions (if answered)
 
-### 2. Work Product Must Transfer
-- Completed outputs
+#### 2. Work Product Must Transfer (via Context Bus)
+- Completed outputs (code, tests, reports)
 - Key decisions made
 - Important findings
 - Unanswered questions
+- All data from `.session/context.md`
 
-### 3. Goal Must Remain Clear
+#### 3. Goal Must Remain Clear
 - What the user ultimately wants
 - Success criteria
 - Any constraints mentioned
+- Current pipeline stage and what comes next
 
 ---
 

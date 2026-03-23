@@ -38,12 +38,15 @@ function showHelp() {
   log('  yuva <command> [options]\n');
 
   log('Setup Commands:', 'bright');
-  log('  init              Initialize in current directory');
-  log('  upgrade           Update agents and system files');
+  log('  init [tool]       Initialize for AI tool (auto-detects if omitted)');
+  log('  upgrade           Update/migrate to latest format');
   log('  doctor            Diagnose setup issues\n');
 
   log('Agent Commands:', 'bright');
-  log('  list [dev|life]   List all installed agents');
+  log('  agent show <name> Get full agent prompt');
+  log('  agent list        List all available agents');
+  log('  agent orchestrate Scan project context');
+  log('  list              List all installed agents');
   log('  add create <name> Create a custom agent');
   log('  add remove <name> Remove an agent\n');
 
@@ -73,9 +76,10 @@ function showHelp() {
 
   log('Examples:', 'bright');
   log('  npx yuva init');
-  log('  npx yuva list dev');
-  log('  npx yuva add create my-custom-agent');
-  log('  npx yuva workflow create blog-pipeline');
+  log('  npx yuva init opencode');
+  log('  npx yuva agent list');
+  log('  npx yuva agent show requirements');
+  log('  npx yuva agent orchestrate');
   log('  npx yuva llm use gpt');
   log('  npx yuva status\n');
 
@@ -86,7 +90,12 @@ function showHelp() {
 switch (command) {
   case 'init': {
     const initCommand = require('../lib/commands/init');
-    initCommand({ force: flags.force, dryRun: flags.dryRun });
+    initCommand({ force: flags.force, dryRun: flags.dryRun, tool: subArgs[0] || null });
+    break;
+  }
+  case 'agent': {
+    const agentCommand = require('../lib/commands/agent');
+    agentCommand(subArgs);
     break;
   }
   case 'status': {

@@ -1,7 +1,7 @@
 {
   "name": "yuva-ai",
   "version": "3.3.0",
-  "description": "Yuva AI - Universal AI assistant framework with 34+ agents, 19 LLM platforms, plugin system, workflow composer, analytics dashboard",
+  "description": "Yuva AI - Development agent framework with 12 agents, 19 LLM platforms, on-demand prompts, and auto-detection",
   "main": "index.js",
   "bin": {
     "yuva-ai": "bin/cli.js",
@@ -26,8 +26,8 @@
     "framework",
     "development",
     "code-quality",
-    "life-assistant",
-    "personal-assistant",
+    "on-demand-prompts",
+    "auto-detection",
     "ollama",
     "gpt",
     "gemini",

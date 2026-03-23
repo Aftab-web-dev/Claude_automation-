@@ -1,217 +1,129 @@
 # Escalation Protocol
 
-Guidelines for handling emergencies, crises, and situations requiring immediate human intervention.
+Guidelines for handling situations requiring escalation or user intervention during development tasks.
 
 ---
 
 ## Purpose
 
-This protocol defines when and how to escalate beyond AI assistance to ensure user safety and appropriate professional help.
+This protocol defines when and how to escalate beyond normal agent flow to ensure the user is informed and can make decisions about their project.
 
 ---
 
 ## Escalation Levels
 
-### Level 1: Information Only
-- User needs factual information
-- No immediate risk
-- AI can fully handle
-- **Action**: Provide information with appropriate disclaimers
+### Level 1: Continue Automatically
+- Standard pipeline step
+- No risks or blockers
+- Agent can fully handle
+- **Action**: Proceed and update session
 
-### Level 2: Professional Recommendation
-- Topic is sensitive or complex
-- User would benefit from expert help
-- No immediate danger
-- **Action**: Provide assistance + recommend professional consultation
+### Level 2: Inform User
+- Notable finding worth mentioning
+- Non-blocking issue
+- User should be aware
+- **Action**: Complete work, include note in summary
 
-### Level 3: Urgent Professional Referral
-- Situation is serious but not emergency
-- Professional help needed soon
-- Time-sensitive but not immediate danger
-- **Action**: Strongly encourage professional help, provide resources
+### Level 3: Ask User Permission
+- Security vulnerability found
+- Significant code change required
+- Decision affects project architecture
+- **Action**: Stop, present finding, ask user to approve before proceeding
 
-### Level 4: Emergency Escalation
-- Immediate risk to life or safety
-- Crisis situation
-- Cannot be handled by AI
-- **Action**: Provide emergency resources immediately, pause other assistance
+### Level 4: Block Until Resolved
+- Critical blocker preventing progress
+- Conflicting requirements
+- Missing information that cannot be inferred
+- **Action**: Present the blocker clearly, wait for user input
 
 ---
 
 ## Domain-Specific Escalation
 
-### Medical/Health
+### Security Issues
 
-**Level 2 (Recommend Professional):**
-- Persistent symptoms (>2 weeks)
-- Chronic condition management
-- Medication questions
-- Mental health concerns
+**Level 2 (Inform):**
+- Low-severity findings
+- Best practice recommendations
+- Minor code quality issues
 
-**Level 3 (Urgent Referral):**
-- Symptoms worsening
-- New concerning symptoms
-- Pregnancy complications
-- Severe pain
+**Level 3 (Ask Permission):**
+- Medium or high severity vulnerabilities
+- Any security fix that modifies existing logic
+- Changes to authentication or authorization
 
-**Level 4 (Emergency):**
-- Chest pain, difficulty breathing
-- Signs of stroke
-- Severe allergic reaction
-- Suicidal thoughts or self-harm
-- Overdose
-- Severe injury
+**Level 4 (Block):**
+- Critical vulnerability in production-bound code
+- Security configuration that requires user decision
 
-**Emergency Response:**
+**Security Escalation Format:**
 ```
-I'm concerned about what you're describing. This needs immediate medical attention.
+Security Agent found: [issue description]
+Severity: [LOW / MEDIUM / HIGH / CRITICAL]
+Location: [file and line]
+Risk: [what could happen]
+Proposed fix: [what will be changed]
 
-Please:
-- Call emergency services: 911 (US) / 112 (EU) / 108 (India)
-- Go to nearest emergency room
-- Don't wait
-
-If you're having thoughts of self-harm:
-- National Suicide Prevention Lifeline: 988 (US)
-- Crisis Text Line: Text HOME to 741741
-- iCall (India): 9152987821
-- Samaritans (UK): 116 123
-
-Your safety is the priority right now.
+Proceed with fix? [Yes / No / Show me more details]
 ```
 
 ---
 
-### Mental Health
+### Architecture Decisions
 
-**Level 2:**
-- General stress
-- Mild anxiety
-- Life transitions
-- Relationship concerns
+**Level 3 (Ask Permission):**
+- Changing folder structure
+- Adding new dependencies
+- Modifying database schema
+- Changing API contracts
 
-**Level 3:**
-- Persistent anxiety/depression
-- Significant impact on daily life
-- Grief processing
-- Trauma symptoms
-
-**Level 4:**
-- Suicidal ideation
-- Self-harm thoughts or actions
-- Psychotic symptoms
-- Severe panic attacks
-- Abuse situations
-
-**Crisis Response:**
+**Escalation Format:**
 ```
-I hear that you're going through something really difficult. Your feelings are valid, and you deserve support from someone trained to help.
+Architecture decision needed:
+Current: [current state]
+Proposed: [proposed change]
+Reason: [why this is needed]
+Impact: [what will be affected]
 
-Please reach out now:
-- 988 Suicide & Crisis Lifeline (US): Call or text 988
-- Crisis Text Line: Text HOME to 741741
-- International Association for Suicide Prevention: https://www.iasp.info/resources/Crisis_Centres/
-
-If you're in immediate danger, please call emergency services or go to your nearest emergency room.
-
-I care about your wellbeing. Please reach out to one of these resources.
+Approve this change? [Yes / No / Discuss]
 ```
 
 ---
 
-### Legal
+### Missing Requirements
 
-**Level 2:**
-- General legal information
-- Understanding rights
-- Simple document questions
+**Level 4 (Block):**
+- Cannot determine intended behavior
+- Conflicting requirements in planning docs
+- Business logic unclear
 
-**Level 3:**
-- Active legal dispute
-- Contract negotiations
-- Employment issues
-- Family law matters
-
-**Level 4:**
-- Arrest or detention
-- Immediate legal threat
-- Domestic violence
-- Criminal charges
-
-**Legal Emergency Response:**
+**Escalation Format:**
 ```
-This situation requires immediate legal assistance.
+Blocked: Cannot proceed without clarification.
+Question: [specific question]
+Context: [why this matters]
+Options: [possible interpretations]
 
-Please:
-- Contact a lawyer immediately
-- If you cannot afford one, contact legal aid:
-  - Legal Aid Society (US)
-  - National Legal Services Authority (India): 1516
-  - Citizens Advice (UK)
-- Do not make statements without legal counsel
-- Document everything
-
-If you're in immediate danger, call emergency services first.
+Which approach should I take?
 ```
 
 ---
 
-### Financial
+### Breaking Changes
 
-**Level 2:**
-- General financial education
-- Budgeting help
-- Investment concepts
+**Level 3 (Ask Permission):**
+- Change will break existing functionality
+- Migration required
+- API contract change
 
-**Level 3:**
-- Significant financial decisions
-- Tax complications
-- Debt management
-- Business financial issues
-
-**Level 4:**
-- Fraud victim
-- Identity theft
-- Scam in progress
-- Financial emergency
-
-**Fraud Response:**
+**Escalation Format:**
 ```
-If you believe you're a victim of fraud or scam:
+Warning: This change will affect existing functionality.
+What will change: [description]
+Files affected: [list]
+Migration needed: [yes/no, and what]
 
-Immediate steps:
-1. Stop all communication with the scammer
-2. Do not send any more money
-3. Contact your bank immediately to freeze accounts
-4. Report to authorities:
-   - FTC (US): reportfraud.ftc.gov
-   - Action Fraud (UK): 0300 123 2040
-   - Cyber Crime Portal (India): cybercrime.gov.in
-5. Change passwords on all financial accounts
-
-Time is critical - contact your bank NOW.
-```
-
----
-
-### Abuse Situations
-
-**Any mention of abuse triggers Level 4:**
-
-```
-Your safety matters. No one deserves to be hurt.
-
-If you're in immediate danger, please:
-- Call emergency services: 911 / 112 / 100
-- Get to a safe location if possible
-
-Support resources:
-- National Domestic Violence Hotline (US): 1-800-799-7233
-- Women's Aid (UK): 0808 2000 247
-- Women Helpline (India): 181
-- National Child Abuse Hotline (US): 1-800-422-4453
-
-You don't have to face this alone. Help is available.
+Proceed? [Yes / No]
 ```
 
 ---
@@ -219,61 +131,54 @@ You don't have to face this alone. Help is available.
 ## Escalation Response Rules
 
 ### Do's
-- Respond immediately to Level 4 situations
-- Provide specific, actionable resources
-- Express genuine concern
-- Keep the message focused on safety
-- Offer to continue helping after crisis is addressed
+- Be specific about what was found
+- Provide actionable options
+- Show the exact location of the issue
+- Explain the impact clearly
 
 ### Don'ts
-- Don't minimize the situation
-- Don't ask for unnecessary details
-- Don't delay providing resources
-- Don't lecture or judge
-- Don't promise outcomes ("it will be okay")
-- Don't provide alternative AI help for emergencies
+- Don't proceed with Level 3+ issues without user approval
+- Don't make security fixes silently
+- Don't make architecture decisions unilaterally
+- Don't block on minor issues that have obvious solutions
 
 ---
 
 ## Post-Escalation
 
-After providing emergency resources:
+After user responds to an escalation:
 
-1. **Check in**: "Is there anything else I can help with once you've reached out to [resource]?"
-
-2. **Remain available**: Don't abandon the conversation
-
-3. **Redirect appropriately**: If user continues with non-emergency needs, help with those while gently checking on the crisis
-
-4. **Document**: Note escalation in session/memory for continuity
+1. **If approved**: Proceed with proposed action, update session log with decision
+2. **If declined**: Log as accepted risk or skipped item, continue pipeline
+3. **If needs discussion**: Provide more detail, present alternatives
 
 ---
 
-## Escalation Triggers (Keywords)
+## Escalation Triggers
 
-### Immediate Escalation (Level 4)
-- "kill myself", "end my life", "suicide"
-- "self-harm", "cutting", "hurt myself"
-- "being abused", "he/she hits me"
-- "can't breathe", "chest pain"
-- "overdose", "took too many pills"
-- "being followed", "stalker"
+### Immediate Block (Level 4)
+- Requirements not found and cannot be inferred
+- Conflicting information in session files
+- Critical dependency missing
 
-### Urgent Review (Level 3)
-- "can't stop crying", "haven't slept in days"
-- "stopped eating", "can't get out of bed"
-- "panic attack", "can't cope"
-- "losing my home", "being evicted"
-- "might lose my job", "workplace harassment"
+### Ask Permission (Level 3)
+- Security vulnerability (MEDIUM or higher)
+- Destructive or irreversible change
+- Major refactor affecting many files
+
+### Inform (Level 2)
+- Low-severity security finding
+- Deprecated dependency found
+- Performance concern noted
 
 ---
 
 ## Agent Responsibilities
 
-All agents must:
+All development agents must:
 
-1. **Monitor** for escalation triggers in every message
-2. **Prioritize** safety over task completion
-3. **Interrupt** normal flow for Level 4 situations
-4. **Include** appropriate disclaimers for Level 2-3 situations
-5. **Resume** normal assistance only after escalation is addressed
+1. **Monitor** for escalation triggers during their work
+2. **Prioritize** user safety over task speed
+3. **Interrupt** normal flow for Level 3+ situations
+4. **Log** all escalations in `.session/log.md`
+5. **Resume** normal pipeline only after escalation is resolved

@@ -14,14 +14,14 @@ describe('CLI', () => {
     fs.rmSync(tmpDir, { recursive: true, force: true });
   });
 
-  describe('init command', () => {
+  describe('template copy', () => {
     it('should copy template files to target directory', () => {
       const templateDir = path.join(__dirname, '..', 'template');
       const { copyDir } = require('../lib/fs-utils');
 
       copyDir(templateDir, tmpDir);
 
-      expect(fs.existsSync(path.join(tmpDir, 'CLAUDE.md'))).toBe(true);
+      expect(fs.existsSync(path.join(tmpDir, 'AGENTS.md'))).toBe(true);
       expect(fs.existsSync(path.join(tmpDir, '.aiautomations', 'prompts'))).toBe(true);
       expect(fs.existsSync(path.join(tmpDir, '.aiautomations', 'standards'))).toBe(true);
       expect(fs.existsSync(path.join(tmpDir, '.aiautomations', 'checklists'))).toBe(true);
@@ -29,7 +29,7 @@ describe('CLI', () => {
       expect(fs.existsSync(path.join(tmpDir, '.aiautomations', 'templates'))).toBe(true);
     });
 
-    it('should create all 35 agent prompt files', () => {
+    it('should create all dev agent prompt files', () => {
       const templateDir = path.join(__dirname, '..', 'template');
       const { copyDir } = require('../lib/fs-utils');
 
@@ -37,7 +37,7 @@ describe('CLI', () => {
 
       const promptsDir = path.join(tmpDir, '.aiautomations', 'prompts');
       const agents = fs.readdirSync(promptsDir).filter(f => f.endsWith('.md'));
-      expect(agents.length).toBeGreaterThanOrEqual(34);
+      expect(agents.length).toBeGreaterThanOrEqual(12);
     });
 
     it('should create config.json', () => {
@@ -58,7 +58,7 @@ describe('CLI', () => {
       expect(fs.existsSync(path.join(tmpDir, '.aiautomations', 'agents'))).toBe(true);
     });
 
-    it('should create workflow directory with sample workflows', () => {
+    it('should create workflow directory', () => {
       const templateDir = path.join(__dirname, '..', 'template');
       const { copyDir } = require('../lib/fs-utils');
 
@@ -67,7 +67,32 @@ describe('CLI', () => {
       const workflowsDir = path.join(tmpDir, '.aiautomations', 'workflows');
       expect(fs.existsSync(workflowsDir)).toBe(true);
       const workflows = fs.readdirSync(workflowsDir).filter(f => f.endsWith('.yml'));
-      expect(workflows.length).toBeGreaterThanOrEqual(3);
+      expect(workflows.length).toBeGreaterThanOrEqual(1);
+    });
+  });
+
+  describe('resolve-package', () => {
+    it('should resolve package path from source', () => {
+      const { resolvePackagePath } = require('../lib/resolve-package');
+      const pkgPath = resolvePackagePath();
+      expect(pkgPath).toBeTruthy();
+      expect(fs.existsSync(path.join(pkgPath, 'template'))).toBe(true);
+    });
+
+    it('should find agent prompt paths', () => {
+      const { getAgentPromptPath } = require('../lib/resolve-package');
+      const promptPath = getAgentPromptPath('requirements');
+      expect(promptPath).toBeTruthy();
+      expect(fs.existsSync(promptPath)).toBe(true);
+    });
+  });
+
+  describe('detect-tool', () => {
+    it('should return a valid tool string', () => {
+      const { detectTool } = require('../lib/detect-tool');
+      const tool = detectTool(process.cwd());
+      expect(typeof tool).toBe('string');
+      expect(tool.length).toBeGreaterThan(0);
     });
   });
 });

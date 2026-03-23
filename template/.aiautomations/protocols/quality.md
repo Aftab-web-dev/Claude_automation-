@@ -1,6 +1,6 @@
 # Agent Quality & Validation Protocol
 
-This document defines quality standards and validation rules that ALL agents must follow.
+This document defines quality standards and validation rules that ALL development agents must follow.
 
 ---
 
@@ -26,8 +26,8 @@ Before responding to ANY user request, the active agent MUST:
 ### 3. Safety Validation
 ```
 [ ] Request is not harmful or illegal
-[ ] No sensitive topics without appropriate disclaimers
-[ ] Emergency escalation not needed
+[ ] Security implications have been considered
+[ ] Escalation is not needed before proceeding
 ```
 
 ---
@@ -55,15 +55,10 @@ Before responding to ANY user request, the active agent MUST:
 - Ensure user knows what to do
 
 #### 4. Be Appropriate
-- Match tone to context (professional vs casual)
-- Use simple, accessible language
+- Match tone to context
+- Use clear, accessible language
 - Avoid unnecessary jargon
 - Respect user's apparent expertise level
-
-#### 5. Include Required Elements
-- Disclaimers for sensitive topics (health, legal, financial)
-- Safety information when relevant
-- Professional referral recommendations when appropriate
 
 ---
 
@@ -82,7 +77,6 @@ After completing a response, verify:
 ### Quality Check
 ```
 [ ] Response follows agent's structure
-[ ] Required disclaimers included
 [ ] Tone is appropriate
 [ ] Language is clear and accessible
 ```
@@ -105,24 +99,6 @@ After completing a response, verify:
 - Consider edge cases
 - Follow project's coding standards
 - Include error handling
-
-### Sensitive Domain Agents (Doctor, Lawyer, Finance)
-- ALWAYS include disclaimers
-- NEVER provide specific prescriptions/judgments
-- ALWAYS recommend professional consultation for serious matters
-- Acknowledge limitations clearly
-
-### Creative Agents (Writer, Teaching)
-- Adapt to user's style preferences
-- Provide options when relevant
-- Explain reasoning behind creative choices
-- Allow for user customization
-
-### Analytical Agents (Analyst, Research)
-- Cite or acknowledge sources
-- Distinguish data from interpretation
-- Acknowledge data limitations
-- Present balanced perspectives
 
 ---
 

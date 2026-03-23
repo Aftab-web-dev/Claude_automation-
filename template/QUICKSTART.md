@@ -1,211 +1,149 @@
 # Quick Start Guide
 
-Get started with the AI Universal Assistant System in 5 minutes.
+Get started with Yuva AI in 2 minutes.
 
 ---
 
-## Step 1: Setup
+## Step 1: Initialize
 
-Copy the `template/` folder to your project root:
+```bash
+yuva init
+```
 
+This creates 3 files:
 ```
 your-project/
-├── CLAUDE.md              # Auto-read by Claude
-├── .aiautomations/        # Agent system
-└── [your project files]
+├── AGENTS.md                  # Orchestrator (AI reads this)
+├── .aiautomations/
+│   ├── config.json            # Tool config
+│   └── agents.md              # Agent index
 ```
 
 ---
 
-## Step 2: Start a Conversation
+## Step 2: Start Working
 
-Simply start chatting. The system auto-routes to the right agent.
+Open your project in your AI tool and start chatting. The AI reads AGENTS.md and knows how to use agents.
 
 ---
 
-## Example Workflows
+## Example Workflow
 
 ### Building Software
 
 ```
 You: "I want to build a task management API"
 
-System:
-1. Activates Requirements Agent
-2. Gathers your requirements
-3. Activates Risk Assessment Agent
-4. Activates Planner Agent
-5. Creates planning document
-6. Asks: "Ready to start building?"
+AI runs: yuva agent orchestrate
+AI sees: hasExistingCode: false
+AI runs: yuva agent show requirements
 
-You: "Yes"
-
-System:
-1. Activates Execution Agent
-2. Implements step-by-step
-3. Updates session files
-4. Runs quality checks
+1. Requirements Agent gathers your requirements
+2. Risk Assessment Agent identifies risks
+3. Planner Agent creates architecture
+4. Execution Agent implements step-by-step
+5. Tester Agent writes tests
+6. Session files updated automatically
 ```
 
-### Learning Something
+### Working with Existing Code
 
 ```
-You: "Teach me how mutual funds work"
+You: "Add authentication to this project"
 
-System:
-1. Activates Teaching Agent
-2. Explains concept with real-life examples
-3. Provides exam weightage info
-4. Gives practice questions
+AI runs: yuva agent orchestrate
+AI sees: hasExistingCode: true, languages: ["javascript"], frameworks: ["express"]
+AI runs: yuva agent show existingcode
+
+1. Existing Code Agent analyzes the codebase
+2. Requirements Agent clarifies the feature
+3. Planner Agent designs the implementation
+4. Execution Agent implements it
 ```
 
-### Interview Preparation
+### Fixing a Bug
 
 ```
-You: "I have a software engineer interview next week"
+You: "There's a login error on the dashboard"
 
-System:
-1. Activates Interview Agent
-2. Asks about role and experience level
-3. Conducts mock interview
-4. Provides feedback on answers
-5. Suggests improvements
-```
-
-### Research Task
-
-```
-You: "Research the latest trends in AI for healthcare"
-
-System:
-1. Activates Research Agent
-2. Performs deep research
-3. Provides structured analysis
-4. Cites sources
-5. Offers to hand off to Writer Agent if needed
-```
-
-### Stress Management
-
-```
-You: "I'm feeling overwhelmed with work deadlines"
-
-System:
-1. Activates Stress Agent
-2. Validates your feelings
-3. Provides immediate coping techniques
-4. Offers long-term strategies
-5. Suggests Productivity Agent handoff if needed
+AI runs: yuva agent show debugger
+1. Debugger Agent investigates the issue
+2. Implements the fix
+3. Tester Agent verifies it
 ```
 
 ---
 
 ## Key Commands
 
-| Say This | To Do This |
-|----------|------------|
-| "Continue" | Resume previous work |
-| "Start building" | Begin implementation |
-| "Test this" | Run testing agent |
-| "Review the code" | Get code review |
-| "Debug this" | Fix issues |
-| "Teach me X" | Learn something |
-| "Research X" | Deep research |
-| "Help me write X" | Content creation |
+| Say This | What Happens |
+|----------|-------------|
+| "Build X" | Requirements → Planning → Execution |
+| "Continue" | Continuity agent resumes from session |
+| "Fix this bug" | Debugger agent investigates |
+| "Test this" | Tester agent writes tests |
+| "Review the code" | Reviewer agent audits quality |
+| "Check security" | Security agent scans for vulnerabilities |
+
+---
+
+## CLI Commands
+
+```bash
+yuva agent show <name>    # Get any agent's full prompt
+yuva agent list           # See all available agents
+yuva agent orchestrate    # Scan project context
+yuva doctor               # Check setup health
+yuva init <tool>          # Switch AI tool
+```
 
 ---
 
 ## Session Files
 
-For development projects, the system creates:
+The system creates session files to track progress:
 
 ```
 .session/
-├── state.md    # Where you are now
+├── state.md    # Current project state
 ├── log.md      # What was done
 └── next.md     # What's next
 ```
 
-**To resume work:**
-```
-You: "Continue"
-System: Reads session files and picks up where you left off
-```
+To resume: just say "Continue" and the continuity agent picks up where you left off.
 
 ---
 
-## Tips for Best Results
+## Tips
 
 ### Be Specific
 ```
 Bad:  "Help me with code"
-Good: "Help me build a REST API for user authentication"
+Good: "Build a REST API for user authentication with JWT"
 ```
 
-### Provide Context
+### Use Agent Names Directly
 ```
-Bad:  "I need investment advice"
-Good: "I'm 25, earning 50k/year, want to start investing for retirement"
+"Run the security agent on this code"
+"Show me the debugger agent"
 ```
-
-### Use Keywords
-```
-"teach" → Teaching Agent
-"research" → Research Agent
-"interview" → Interview Agent
-"debug" → Debugger Agent
-```
-
----
-
-## Multi-Agent Tasks
-
-Some tasks use multiple agents:
-
-```
-You: "Research blockchain and write a blog post about it"
-
-System:
-1. Activates Research Agent → Does research
-2. Hands off to Writer Agent → Writes blog post
-```
-
----
-
-## Safety Notes
-
-- **Health topics**: Agent provides education, not diagnosis
-- **Legal topics**: Agent explains rights, not legal advice
-- **Finance topics**: Agent educates, not financial advice
-
-All sensitive domains include disclaimers and recommend professionals.
 
 ---
 
 ## Troubleshooting
 
-### Agent Not Routing Correctly?
-Use explicit keywords:
-- "Activate Interview Agent"
-- "I need the Finance Agent"
-
-### Lost Progress?
-```
-You: "Show me the session state"
+### Setup Issues?
+```bash
+yuva doctor
 ```
 
 ### Want to Start Fresh?
+```bash
+yuva init --force
 ```
-You: "RESET PROJECT"
+
+### Switch AI Tool?
+```bash
+yuva init cursor --force
+yuva init opencode --force
 ```
-
----
-
-## Next Steps
-
-1. Try a development project
-2. Explore life agents
-3. Customize agents in `.aiautomations/prompts/`
-4. Add your own standards in `.aiautomations/standards/`
-
-Happy building!

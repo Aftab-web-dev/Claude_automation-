@@ -1,6 +1,6 @@
-# Universal Memory & Context System
+# Memory & Context System
 
-This system maintains context across all agents (development and life) for a more personalized and continuous experience.
+This system maintains context across all development agents for a continuous and consistent experience.
 
 ---
 
@@ -41,15 +41,10 @@ This system maintains context across all agents (development and life) for a mor
 - Tone preference: [casual/professional/formal]
 - Format preference: [bullets/paragraphs/structured]
 
-### Technical (if applicable)
+### Technical
 - Tech stack: [languages, frameworks]
 - OS: [operating system]
 - Editor/IDE: [tools used]
-
-### Life Domains
-- Financial: [risk tolerance, goals if shared]
-- Health: [any relevant context shared]
-- Learning style: [visual/reading/hands-on]
 
 ## Important Notes
 - [Any user-stated important information]
@@ -68,7 +63,7 @@ This system maintains context across all agents (development and life) for a mor
 # Current Context
 
 ## Active Domain
-[Development / Life - specify which]
+Development
 
 ## Current Task
 **What:** [brief description]
@@ -76,11 +71,11 @@ This system maintains context across all agents (development and life) for a mor
 **Status:** [in-progress/paused/blocked]
 
 ## Recent Topics (Last 5)
-1. [Topic] - [domain] - [date]
-2. [Topic] - [domain] - [date]
-3. [Topic] - [domain] - [date]
-4. [Topic] - [domain] - [date]
-5. [Topic] - [domain] - [date]
+1. [Topic] - [date]
+2. [Topic] - [date]
+3. [Topic] - [date]
+4. [Topic] - [date]
+5. [Topic] - [date]
 
 ## Open Threads
 - [Unfinished conversations or tasks]
@@ -109,28 +104,6 @@ This system maintains context across all agents (development and life) for a mor
 |------|---------|--------|-------|
 | [date] | [name] | [status] | [key notes] |
 
-## Life Consultations
-
-### Research Topics
-| Date | Topic | Depth | Outcome |
-|------|-------|-------|---------|
-| [date] | [topic] | [quick/deep] | [key finding] |
-
-### Career Interactions
-| Date | Focus | Advice Given |
-|------|-------|--------------|
-| [date] | [topic] | [summary] |
-
-### Finance Discussions
-| Date | Topic | Key Points |
-|------|-------|------------|
-| [date] | [topic] | [summary] |
-
-### Learning Sessions
-| Date | Subject | Level | Progress |
-|------|---------|-------|----------|
-| [date] | [topic] | [beginner/etc] | [where left off] |
-
 ## Important Past Interactions
 - [Significant interactions to remember]
 
@@ -149,23 +122,6 @@ This system maintains context across all agents (development and life) for a mor
 | Date | Decision | Rationale | Impact |
 |------|----------|-----------|--------|
 | [date] | [what was decided] | [why] | [files/areas affected] |
-
-## Life Domain Decisions
-
-### Career
-| Date | Decision | Context |
-|------|----------|---------|
-| [date] | [decision] | [situation] |
-
-### Finance
-| Date | Decision | Reasoning |
-|------|----------|-----------|
-| [date] | [decision] | [why] |
-
-### Other
-| Date | Domain | Decision |
-|------|--------|----------|
-| [date] | [area] | [decision] |
 
 ## Preferences Expressed
 - [User stated preferences that should guide future interactions]
@@ -193,7 +149,6 @@ This system maintains context across all agents (development and life) for a mor
 ### When to Update History
 - Meaningful interaction completes
 - Project reaches milestone
-- Learning session ends
 - Important advice given
 
 ### When to Update Decisions
@@ -232,10 +187,8 @@ This system maintains context across all agents (development and life) for a mor
 
 ### What NOT to Store
 - Sensitive personal data (unless user requests)
-- Medical details (only general context)
-- Financial account details
 - Passwords or credentials
-- Private relationship details
+- Any secrets or API keys
 
 ### User Control
 - User can request memory deletion
@@ -275,16 +228,13 @@ Every agent should:
 
 | Agent | What to Remember |
 |-------|------------------|
-| Career | Goals, industry, experience level |
-| Finance | Risk tolerance, financial goals |
-| Teaching | Learning style, current level, progress |
-| Research | Topics researched, preferred depth |
-| Business | Business interests, entrepreneurial stage |
-| Doctor | General health context (not details) |
-| Wellness | Stress patterns, what helps |
-| Productivity | Work style, tools preferred |
-| Interview | Target roles, preparation stage |
-| Writer | Writing style preferences, past content |
-| Travel | Travel preferences, past trips discussed |
-| Legal | Jurisdiction, relevant legal contexts |
-| Development | Tech stack, coding style, project history |
+| Execution | Coding style preferences, error handling choices |
+| Planner | Architecture decisions, tech stack choices |
+| Tester | Testing preferences, coverage targets |
+| Security | Security decisions, accepted risks |
+| Refactor | Refactoring patterns applied, style preferences |
+| Reviewer | Quality bar, review standards applied |
+| Continuity | Full project history, session state |
+| Requirements | Project goals, user stories, constraints |
+| Debugger | Known issues, fix patterns applied |
+| State Manager | Session file locations, update frequency |

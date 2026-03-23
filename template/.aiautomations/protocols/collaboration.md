@@ -1,6 +1,6 @@
 # Inter-Agent Collaboration Protocol
 
-This document defines how agents work together on complex tasks that span multiple domains.
+This document defines how development agents work together on complex tasks.
 
 ---
 
@@ -12,9 +12,9 @@ This document defines how agents work together on complex tasks that span multip
 - User request is focused and specific
 
 ### Multi-Agent Tasks (Collaboration Required)
-- Task spans multiple domains
-- User request has multiple components
+- Task spans multiple stages of the development pipeline
 - One agent needs another's expertise to complete
+- Post-code pipeline agents are always multi-agent by design
 
 ---
 
@@ -31,10 +31,12 @@ Agent A (completes task) → Summary → Agent B (continues)
 **Examples:**
 | First Agent | Handoff To | Scenario |
 |-------------|------------|----------|
-| Research | Writer | "Research X and write an article" |
-| Career | Interview | "Prepare for career change interview" |
-| Business | Finance | "Evaluate idea + financial analysis" |
-| Planner | Execution | Software planning → implementation |
+| Requirements | Risk Assessment | Requirements complete → risk analysis |
+| Risk Assessment | Planner | Risk assessed → architecture planning |
+| Planner | Execution | Plan approved → implementation |
+| Execution | Tester | Code written → testing |
+| Tester | Debugger | Tests fail → bug fixing |
+| Security | Refactor | Scan complete → code improvement |
 
 **Handoff Protocol:**
 1. Agent A announces: "Task complete. Handing off to [Agent B] for [reason]"
@@ -62,10 +64,9 @@ Agent A (primary) ←→ Agent B (consults) → Combined response
 **Examples:**
 | Primary Agent | Consults | Scenario |
 |---------------|----------|----------|
-| Business | Finance | Business idea with profit analysis |
-| Career | Writer | Career advice + resume help |
-| Teaching | Research | Teach topic with research depth |
-| Wellness | Productivity | Stress about workload |
+| Execution | Security | Implementation with security considerations |
+| Planner | Execution | Architecture with implementation feasibility check |
+| Reviewer | Security | Final review with security verification |
 
 **Consultation Protocol:**
 1. Primary agent identifies need: "Consulting [Agent] for [specific question]"
@@ -84,9 +85,8 @@ Agent A + Agent B → Joint output
 ```
 
 **Examples:**
-- Career + Interview: Complete job search preparation
-- Research + Analyst: Deep research with data analysis
-- Business + Research: Market research + business evaluation
+- Tester + Security: Verify fixes from both angles after Debugger resolves issues
+- Refactor + Reviewer: Ensure refactored code meets all quality standards
 
 **Joint Protocol:**
 1. Determine which agent leads
@@ -120,26 +120,6 @@ Agent A + Agent B → Joint output
 | Tester + Security | Reviewer | Both pass after refactor | All sections |
 | Reviewer | Any Agent | Changes needed | Review Verdict section |
 | Reviewer | State Manager | APPROVED | Final state |
-
-### Life Agents
-
-| From Agent | To Agent | Trigger |
-|------------|----------|---------|
-| Research | Writer | Research → content creation |
-| Research | Teaching | Deep topic → need to teach |
-| Research | Analyst | Research → data analysis |
-| Business | Finance | Idea → financial evaluation |
-| Business | Research | Idea → market research |
-| Career | Interview | Job search → interview prep |
-| Career | Writer | Career → resume/cover letter |
-| Career | Wellness | Career stress → mental support |
-| Teaching | Research | Topic needs deeper research |
-| Finance | Business | Investment → business context |
-| Wellness | Productivity | Stress → workload systems |
-| Wellness | Doctor | Mental → physical symptoms |
-| Interview | Career | Interview → broader career |
-| Analyst | Research | Analysis → need more data |
-| Analyst | Business | Analysis → business decisions |
 
 ---
 
@@ -209,7 +189,7 @@ The State Manager MUST run after EVERY agent — not just at the end. This means
 
 ### Announcing Collaboration
 ```
-"This task involves [domain 1] and [domain 2].
+"This task involves [stage 1] and [stage 2].
 I'll start with [Agent A] for [reason],
 then [hand off to / consult] [Agent B] for [reason]."
 ```
@@ -230,14 +210,14 @@ Continuing with [primary task]..."
 
 ## Conflict Resolution
 
-If agents have conflicting advice:
+If agents have conflicting findings:
 
 1. **Acknowledge the tension**
    - "There's a trade-off between X and Y here"
 
 2. **Present both perspectives**
-   - "[Domain A] suggests..."
-   - "[Domain B] suggests..."
+   - "[Agent A] found..."
+   - "[Agent B] found..."
 
 3. **Help user decide**
    - "Given your situation, [recommendation] because [reason]"
@@ -251,7 +231,7 @@ If agents have conflicting advice:
 2. **Responsibility Diffusion**: No agent owns the final output
 3. **Context Loss**: Important information dropped during handoff
 4. **Scope Creep**: Adding agents that aren't needed
-5. **Conflicting Advice**: Agents contradicting without resolution
+5. **Conflicting Findings**: Agents contradicting without resolution
 
 ---
 

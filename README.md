@@ -122,7 +122,7 @@ yuva help                  # Show full help
 
 ## Multi-LLM Support
 
-Works with **19 AI platforms**. Auto-detected on `yuva init`:
+Works with **20 AI platforms**. Auto-detected on `yuva init`:
 
 ### Commercial
 | Platform | Config | Auto-Detect |
@@ -135,6 +135,7 @@ Works with **19 AI platforms**. Auto-detected on `yuva init`:
 | **Windsurf** | `.windsurfrules` | Yes |
 | **Cody** | `.sourcegraph/instructions.md` | Yes |
 | **Amazon Q** | `.amazonq/instructions.md` | Yes |
+| **Antigravity** (Google) | `AGENTS.md` | Yes |
 
 ### Open Source / Local
 | Platform | Config | Auto-Detect |
@@ -212,7 +213,7 @@ npm run doctor
 
 ## Works With
 
-**Commercial:** Claude Code, Cursor, Windsurf, GitHub Copilot, Gemini CLI, Amazon Q, Cody
+**Commercial:** Claude Code, Cursor, Windsurf, GitHub Copilot, Gemini CLI, Amazon Q, Cody, Antigravity
 **Open Source:** Ollama, LM Studio, Jan.ai, Continue.dev, Open Interpreter, LLM CLI, Tabby
 **Terminal:** OpenCode, Codex CLI, Kilo Code, Aider
 **Models:** Llama 3, Mistral, CodeLlama, DeepSeek, Qwen, Phi-3, GPT-4, Claude, Gemini

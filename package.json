@@ -1,7 +1,7 @@
 {
   "name": "yuva-ai",
   "version": "3.3.0",
-  "description": "Yuva AI - Development agent framework with 12 agents, 19 LLM platforms, on-demand prompts, and auto-detection",
+  "description": "Yuva AI - Development agent framework with 12 agents, 20 LLM platforms, on-demand prompts, and auto-detection",
   "main": "index.js",
   "bin": {
     "yuva-ai": "bin/cli.js",
@@ -28,6 +28,7 @@
     "code-quality",
     "on-demand-prompts",
     "auto-detection",
+    "antigravity",
     "ollama",
     "gpt",
     "gemini",

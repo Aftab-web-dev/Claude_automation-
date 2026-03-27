@@ -95,4 +95,44 @@ describe('CLI', () => {
       expect(tool.length).toBeGreaterThan(0);
     });
   });
+
+  describe('init with native configs', () => {
+    it('should generate claude native config with --tool flag', async () => {
+      const origCwd = process.cwd();
+      process.chdir(tmpDir);
+
+      try {
+        const initCommand = require('../lib/commands/init');
+        await initCommand({ tool: 'claude', force: true });
+
+        expect(fs.existsSync(path.join(tmpDir, 'AGENTS.md'))).toBe(true);
+        expect(fs.existsSync(path.join(tmpDir, 'CLAUDE.md'))).toBe(true);
+        expect(fs.existsSync(path.join(tmpDir, '.claude', 'commands', 'debug.md'))).toBe(true);
+        expect(fs.existsSync(path.join(tmpDir, '.claude', 'settings.json'))).toBe(true);
+
+        // Check gitignore was updated
+        const gitignore = fs.readFileSync(path.join(tmpDir, '.gitignore'), 'utf8');
+        expect(gitignore).toContain('Yuva AI');
+      } finally {
+        process.chdir(origCwd);
+      }
+    });
+
+    it('should generate cursor native config with --tool flag', async () => {
+      const origCwd = process.cwd();
+      process.chdir(tmpDir);
+
+      try {
+        const initCommand = require('../lib/commands/init');
+        await initCommand({ tool: 'cursor', force: true });
+
+        expect(fs.existsSync(path.join(tmpDir, 'AGENTS.md'))).toBe(true);
+        expect(fs.existsSync(path.join(tmpDir, '.cursor', 'rules', 'yuva-agents.mdc'))).toBe(true);
+        expect(fs.existsSync(path.join(tmpDir, '.cursor', 'rules', 'yuva-code.mdc'))).toBe(true);
+        expect(fs.existsSync(path.join(tmpDir, '.cursor', 'rules', 'yuva-testing.mdc'))).toBe(true);
+      } finally {
+        process.chdir(origCwd);
+      }
+    });
+  });
 });

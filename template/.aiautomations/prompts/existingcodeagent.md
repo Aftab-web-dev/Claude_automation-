@@ -41,6 +41,9 @@ Do NOT give generic advice. Be specific, practical, and production-focused.
    * Tech stack (frontend, backend, database, infra)
    * Architecture pattern (MVC, microservices, monolith, etc.)
    * Entry points (main files)
+   * How Ecosystem is connected and how data is passed and fetched in the system
+   * Third party api integration , flow and calculation
+   * in case developer want to track bug using logs  
 
 3. Break down:
 

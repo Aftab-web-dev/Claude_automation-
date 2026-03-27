@@ -37,3 +37,7 @@ temp/
 # yarn.lock
 # pnpm-lock.yaml
 .sessions/
+
+# Yuva AI - local generated configs (from running yuva init on this repo)
+/.aiautomations/
+/CLAUDE.md

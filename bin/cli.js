@@ -43,6 +43,7 @@ function showHelp() {
   log('  init --all        Generate native configs for ALL supported tools');
   log('  init --tool <n>   Initialize for specific tool (skip prompt)');
   log('  upgrade           Update/migrate to latest format');
+  log('  update            Update yuva-ai and regenerate all configs');
   log('  doctor            Diagnose setup issues\n');
 
   log('Agent Commands:', 'bright');
@@ -75,7 +76,8 @@ function showHelp() {
   log('  --force           Overwrite existing files');
   log('  --dry-run         Preview changes without applying');
   log('  --verbose         Enable detailed logging');
-  log('  --version, -v     Show version\n');
+  log('  --version, -v     Show version');
+  log('  --skip-npm        Skip npm update (only regenerate configs)\n');
 
   log('Examples:', 'bright');
   log('  npx yuva init');
@@ -119,6 +121,11 @@ switch (command) {
   case 'upgrade': {
     const upgradeCommand = require('../lib/commands/upgrade');
     upgradeCommand({ dryRun: flags.dryRun });
+    break;
+  }
+  case 'update': {
+    const updateCommand = require('../lib/commands/update');
+    updateCommand({ dryRun: flags.dryRun, skipNpm: args.includes('--skip-npm') });
     break;
   }
   case 'config': {

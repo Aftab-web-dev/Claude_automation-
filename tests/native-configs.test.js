@@ -52,4 +52,48 @@ describe('native-configs', () => {
       expect(matches.length).toBe(1);
     });
   });
+
+  describe('generateClaudeConfig', () => {
+    it('should create CLAUDE.md with base template', () => {
+      const { generateClaudeConfig } = require('../lib/native-configs');
+      const files = generateClaudeConfig(tmpDir);
+      const content = fs.readFileSync(path.join(tmpDir, 'CLAUDE.md'), 'utf8');
+      expect(content).toContain('Yuva AI - Claude Code Configuration');
+      expect(content).toContain('yuva agent orchestrate');
+      expect(files).toContain('CLAUDE.md');
+    });
+
+    it('should create slash command files', () => {
+      const { generateClaudeConfig } = require('../lib/native-configs');
+      generateClaudeConfig(tmpDir);
+      const commandsDir = path.join(tmpDir, '.claude', 'commands');
+      expect(fs.existsSync(path.join(commandsDir, 'debug.md'))).toBe(true);
+      expect(fs.existsSync(path.join(commandsDir, 'review.md'))).toBe(true);
+      expect(fs.existsSync(path.join(commandsDir, 'test.md'))).toBe(true);
+      expect(fs.existsSync(path.join(commandsDir, 'security.md'))).toBe(true);
+      expect(fs.existsSync(path.join(commandsDir, 'plan.md'))).toBe(true);
+      expect(fs.existsSync(path.join(commandsDir, 'orchestrate.md'))).toBe(true);
+    });
+
+    it('should create command files that call yuva CLI', () => {
+      const { generateClaudeConfig } = require('../lib/native-configs');
+      generateClaudeConfig(tmpDir);
+      const content = fs.readFileSync(path.join(tmpDir, '.claude', 'commands', 'debug.md'), 'utf8');
+      expect(content).toContain('yuva agent show debugger');
+      expect(content).toContain('$ARGUMENTS');
+    });
+
+    it('should create settings.json with yuva permissions', () => {
+      const { generateClaudeConfig } = require('../lib/native-configs');
+      generateClaudeConfig(tmpDir);
+      const settings = JSON.parse(fs.readFileSync(path.join(tmpDir, '.claude', 'settings.json'), 'utf8'));
+      expect(settings.permissions.allow).toContain('Bash(yuva *)');
+    });
+
+    it('should return list of created files', () => {
+      const { generateClaudeConfig } = require('../lib/native-configs');
+      const files = generateClaudeConfig(tmpDir);
+      expect(files.length).toBeGreaterThanOrEqual(8);
+    });
+  });
 });

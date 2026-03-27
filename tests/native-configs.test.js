@@ -128,4 +128,76 @@ describe('native-configs', () => {
       expect(files).toHaveLength(3);
     });
   });
+
+  describe('single-file generators', () => {
+    it('should create copilot instructions', () => {
+      const { generateCopilotConfig } = require('../lib/native-configs');
+      const files = generateCopilotConfig(tmpDir);
+      const content = fs.readFileSync(path.join(tmpDir, '.github', 'copilot-instructions.md'), 'utf8');
+      expect(content).toContain('Yuva AI - GitHub Copilot Configuration');
+      expect(content).toContain('yuva agent orchestrate');
+      expect(files).toContain('.github/copilot-instructions.md');
+    });
+
+    it('should create windsurf rules', () => {
+      const { generateWindsurfConfig } = require('../lib/native-configs');
+      const files = generateWindsurfConfig(tmpDir);
+      const content = fs.readFileSync(path.join(tmpDir, '.windsurfrules'), 'utf8');
+      expect(content).toContain('Yuva AI - Windsurf Configuration');
+      expect(files).toContain('.windsurfrules');
+    });
+
+    it('should create gemini config', () => {
+      const { generateGeminiConfig } = require('../lib/native-configs');
+      const files = generateGeminiConfig(tmpDir);
+      const content = fs.readFileSync(path.join(tmpDir, 'GEMINI.md'), 'utf8');
+      expect(content).toContain('Yuva AI - Gemini Configuration');
+      expect(files).toContain('GEMINI.md');
+    });
+
+    it('should create kilo code instructions', () => {
+      const { generateKiloConfig } = require('../lib/native-configs');
+      const files = generateKiloConfig(tmpDir);
+      expect(fs.existsSync(path.join(tmpDir, '.kilo', 'instructions.md'))).toBe(true);
+      expect(files).toContain('.kilo/instructions.md');
+    });
+
+    it('should create cody instructions', () => {
+      const { generateCodyConfig } = require('../lib/native-configs');
+      const files = generateCodyConfig(tmpDir);
+      expect(fs.existsSync(path.join(tmpDir, '.sourcegraph', 'instructions.md'))).toBe(true);
+      expect(files).toContain('.sourcegraph/instructions.md');
+    });
+
+    it('should create amazon q instructions', () => {
+      const { generateAmazonQConfig } = require('../lib/native-configs');
+      const files = generateAmazonQConfig(tmpDir);
+      expect(fs.existsSync(path.join(tmpDir, '.amazonq', 'instructions.md'))).toBe(true);
+      expect(files).toContain('.amazonq/instructions.md');
+    });
+
+    it('should create continue instructions', () => {
+      const { generateContinueConfig } = require('../lib/native-configs');
+      const files = generateContinueConfig(tmpDir);
+      expect(fs.existsSync(path.join(tmpDir, '.continue', 'instructions.md'))).toBe(true);
+      expect(files).toContain('.continue/instructions.md');
+    });
+
+    it('should create ollama instructions with fallback note', () => {
+      const { generateOllamaConfig } = require('../lib/native-configs');
+      const files = generateOllamaConfig(tmpDir);
+      const content = fs.readFileSync(path.join(tmpDir, 'OLLAMA_INSTRUCTIONS.md'), 'utf8');
+      expect(content).toContain('Yuva AI - Ollama Configuration');
+      expect(content).toContain('.aiautomations/prompts/');
+      expect(files).toContain('OLLAMA_INSTRUCTIONS.md');
+    });
+
+    it('should create aider config yaml', () => {
+      const { generateAiderConfig } = require('../lib/native-configs');
+      const files = generateAiderConfig(tmpDir);
+      const content = fs.readFileSync(path.join(tmpDir, '.aider.conf.yml'), 'utf8');
+      expect(content).toContain('read: AGENTS.md');
+      expect(files).toContain('.aider.conf.yml');
+    });
+  });
 });

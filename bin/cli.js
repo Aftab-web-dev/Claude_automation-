@@ -6,6 +6,7 @@ const flags = {
   force: args.includes('--force'),
   dryRun: args.includes('--dry-run'),
   verbose: args.includes('--verbose'),
+  all: args.includes('--all'),
   version: args.includes('--version') || args.includes('-v'),
 };
 
@@ -90,7 +91,7 @@ function showHelp() {
 switch (command) {
   case 'init': {
     const initCommand = require('../lib/commands/init');
-    initCommand({ force: flags.force, dryRun: flags.dryRun, tool: subArgs[0] || null });
+    initCommand({ force: flags.force, dryRun: flags.dryRun, all: flags.all, tool: subArgs[0] || null });
     break;
   }
   case 'agent': {

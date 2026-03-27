@@ -200,4 +200,50 @@ describe('native-configs', () => {
       expect(files).toContain('.aider.conf.yml');
     });
   });
+
+  describe('generateNativeConfig', () => {
+    it('should dispatch to claude generator', () => {
+      const { generateNativeConfig } = require('../lib/native-configs');
+      const files = generateNativeConfig('claude', tmpDir);
+      expect(files).toContain('CLAUDE.md');
+      expect(files).toContain('.claude/settings.json');
+    });
+
+    it('should dispatch to cursor generator', () => {
+      const { generateNativeConfig } = require('../lib/native-configs');
+      const files = generateNativeConfig('cursor', tmpDir);
+      expect(files).toContain('.cursor/rules/yuva-agents.mdc');
+    });
+
+    it('should return empty array for tools that use AGENTS.md natively', () => {
+      const { generateNativeConfig } = require('../lib/native-configs');
+      const files = generateNativeConfig('codex', tmpDir);
+      expect(files).toHaveLength(0);
+    });
+
+    it('should return empty array for unknown tool', () => {
+      const { generateNativeConfig } = require('../lib/native-configs');
+      const files = generateNativeConfig('unknown-tool', tmpDir);
+      expect(files).toHaveLength(0);
+    });
+  });
+
+  describe('generateAllNativeConfigs', () => {
+    it('should generate configs for all tools', () => {
+      const { generateAllNativeConfigs } = require('../lib/native-configs');
+      const result = generateAllNativeConfigs(tmpDir);
+      expect(result.totalFiles).toBeGreaterThan(10);
+      expect(result.tools).toContain('claude');
+      expect(result.tools).toContain('cursor');
+      expect(result.tools).toContain('copilot');
+    });
+
+    it('should create CLAUDE.md and .windsurfrules and GEMINI.md', () => {
+      const { generateAllNativeConfigs } = require('../lib/native-configs');
+      generateAllNativeConfigs(tmpDir);
+      expect(fs.existsSync(path.join(tmpDir, 'CLAUDE.md'))).toBe(true);
+      expect(fs.existsSync(path.join(tmpDir, '.windsurfrules'))).toBe(true);
+      expect(fs.existsSync(path.join(tmpDir, 'GEMINI.md'))).toBe(true);
+    });
+  });
 });

@@ -96,4 +96,36 @@ describe('native-configs', () => {
       expect(files.length).toBeGreaterThanOrEqual(8);
     });
   });
+
+  describe('generateCursorConfig', () => {
+    it('should create yuva-agents.mdc with glob frontmatter', () => {
+      const { generateCursorConfig } = require('../lib/native-configs');
+      generateCursorConfig(tmpDir);
+      const content = fs.readFileSync(path.join(tmpDir, '.cursor', 'rules', 'yuva-agents.mdc'), 'utf8');
+      expect(content).toContain('globs: **/*');
+      expect(content).toContain('yuva agent orchestrate');
+    });
+
+    it('should create yuva-code.mdc scoped to source files', () => {
+      const { generateCursorConfig } = require('../lib/native-configs');
+      generateCursorConfig(tmpDir);
+      const content = fs.readFileSync(path.join(tmpDir, '.cursor', 'rules', 'yuva-code.mdc'), 'utf8');
+      expect(content).toContain('globs: src/**,lib/**,app/**');
+      expect(content).toContain('yuva agent show reviewer');
+    });
+
+    it('should create yuva-testing.mdc scoped to test files', () => {
+      const { generateCursorConfig } = require('../lib/native-configs');
+      generateCursorConfig(tmpDir);
+      const content = fs.readFileSync(path.join(tmpDir, '.cursor', 'rules', 'yuva-testing.mdc'), 'utf8');
+      expect(content).toContain('globs: tests/**,test/**,**/*.test.*,**/*.spec.*');
+      expect(content).toContain('yuva agent show tester');
+    });
+
+    it('should return list of created files', () => {
+      const { generateCursorConfig } = require('../lib/native-configs');
+      const files = generateCursorConfig(tmpDir);
+      expect(files).toHaveLength(3);
+    });
+  });
 });

@@ -39,7 +39,9 @@ function showHelp() {
   log('  yuva <command> [options]\n');
 
   log('Setup Commands:', 'bright');
-  log('  init [tool]       Initialize for AI tool (auto-detects if omitted)');
+  log('  init              Initialize for AI tool (interactive, auto-detects)');
+  log('  init --all        Generate native configs for ALL supported tools');
+  log('  init --tool <n>   Initialize for specific tool (skip prompt)');
   log('  upgrade           Update/migrate to latest format');
   log('  doctor            Diagnose setup issues\n');
 
